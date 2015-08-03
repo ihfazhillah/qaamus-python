@@ -1,8 +1,0 @@
-setup.py
-qaamus/__init__.py
-qaamus.egg-info/PKG-INFO
-qaamus.egg-info/SOURCES.txt
-qaamus.egg-info/dependency_links.txt
-qaamus.egg-info/not-zip-safe
-qaamus.egg-info/top_level.txt
-usr/bin/qaamus
