@@ -1,0 +1,8 @@
+setup.py
+qaamus/__init__.py
+rajaongkir.egg-info/PKG-INFO
+rajaongkir.egg-info/SOURCES.txt
+rajaongkir.egg-info/dependency_links.txt
+rajaongkir.egg-info/not-zip-safe
+rajaongkir.egg-info/top_level.txt
+usr/bin/qaamus

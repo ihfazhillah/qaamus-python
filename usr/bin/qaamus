@@ -1,0 +1,26 @@
+#!/usr/bin/python2
+import sys
+from qaamus import Qaamus
+import re
+
+if __name__ == "__main__":
+     args = sys.argv
+     if len(args) == 2:
+         if re.match("[a-z]+", args[1]):
+             cari = Qaamus(args[1])
+             soup = cari.openHtml()
+             print cari.cari(soup)
+         else:
+             print "Masukkan kata dengan huruf indonesia"
+     elif len(args) > 2:
+         kata = " ".join(args[1:])
+         if re.match("[a-z]+", kata):
+             cari2 = Qaamus(kata)
+             soup = cari2.openHtml()
+             print cari2.cari(soup)
+         else:
+             print "Masukkan kata dengan huruf indonesia"
+     else:
+         print "Penerjemah Indo ke Arab"
+         print "Usage : qaamus kata"
+         print "Ex : qaamus mencuci"
