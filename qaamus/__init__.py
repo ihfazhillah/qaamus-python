@@ -80,14 +80,18 @@ class Qaamus:
 
         utama = kata + " = " + self.cariArti(soup)
         secondAwal = self.cariSecondary(soup)
-        if secondAwal != None:
-            secondPages = self.artiSecondaryPages(soup)
+        secondPages = self.artiSecondaryPages(soup)
+        if secondAwal != None and secondPages!=None:
+            
             outp = [utama,"\nHasil yang berkaitan\n" ,secondAwal, secondPages]
+        elif secondAwal != None and secondPages == None:
+            outp = [utama,"\nHasil yang berkaitan\n" ,secondAwal]
         else:
             outp = [utama]
         return "\n".join(outp)
-
+        # return  "\n".join([utama, self.cariSecondary(soup)])
+        # return outp
 #contoh
-# cari = Qaamus("pasta gigi")
-# soup = cari.openHtml(BASE)
+# cari = Qaamus("menulis")
+# soup = cari.openHtml()
 # print cari.cari(soup)
