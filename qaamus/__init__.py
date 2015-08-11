@@ -5,7 +5,7 @@ import re
 
 
 opener = urllib2.build_opener()
-opener.addheader = [('User-agent','Mozilla/5.0')]
+opener.addheader = [('User-agent','Mozilla/4.0')]
 
 class Qaamus:
     def __init__(self, kata):
@@ -89,7 +89,7 @@ class Qaamus:
         else:
             outp = [utama]
         return "\n".join(outp)
-        # return  "\n".join([utama, self.cariSecondary(soup)])
+        # return  "\n".join([utama, self.cariSecondary(soup), self.cariArti(soup)])
         # return outp
 #contoh
 # cari = Qaamus("menulis")
