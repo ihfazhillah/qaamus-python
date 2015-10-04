@@ -87,6 +87,7 @@ class Qaamus:
         # return  "\n".join([utama, self.cariSecondary(soup), self.cariArti(soup)])
         # return outp
 #contoh
-cari = Qaamus("menulis")
-soup = cari.openHtml()
-print cari.cari(soup)
+if __name__ == "__main__":
+    cari = Qaamus("gigit")
+    soup = cari.openHtml()
+    print cari.cari(soup)
