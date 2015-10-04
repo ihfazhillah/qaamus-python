@@ -21,18 +21,13 @@ class Qaamus:
         return Bs(htmltext)
     def cariArti(self, soup):
         #pencarian hasil utama
-        hasil = soup.find('div', attrs={"class":"alert alert-success"}).findNext(
-        'div', attrs={"class":"lateef"}).text
+        hasil = soup.select('div.lateef2')[0].text
         return hasil
     def cariSecondary(self, soup):
         #pencarian untuk arti yang berkaitan
         if not soup.find(text=" (0 hasil)"):
-            hasil_berhub_indo = soup.find('div',
-            attrs={"class":"alert alert-info"}).findAllNext(
-            'div', attrs={"class":"indonesia"})
-            hasil_berhub_arab  = soup.find('div',
-            attrs={"class":"alert alert-info"}).findAllNext(
-            'div', attrs={"class":"lateef"})
+            hasil_berhub_indo = soup.select('td a')
+            hasil_berhub_arab  = soup.select('td.lateef')
             hasil_indo = [x.text for x in hasil_berhub_indo]
             hasil_arab = [x.text for x in hasil_berhub_arab]
             hasil = []
@@ -92,6 +87,6 @@ class Qaamus:
         # return  "\n".join([utama, self.cariSecondary(soup), self.cariArti(soup)])
         # return outp
 #contoh
-# cari = Qaamus("menulis")
-# soup = cari.openHtml()
-# print cari.cari(soup)
+cari = Qaamus("menulis")
+soup = cari.openHtml()
+print cari.cari(soup)
