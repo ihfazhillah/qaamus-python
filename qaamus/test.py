@@ -13,6 +13,14 @@ def get_footer_master(soup):
     result = soup.select(".panel-footer")
     return result[0].text
 
+def get_arti_berhub(soup):
+    arti = soup.select("td > a")
+    arti = [ x.text for x in arti ] 
+    ara = soup.select("td.lateef")
+    ara = [x.text for x in ara]
+    result = zip(arti, ara) 
+    return list(result)
+
 class QaamusTest(unittest.TestCase):
 
 
@@ -32,6 +40,14 @@ class QaamusTest(unittest.TestCase):
     def test_get_footer_translation(self):
         master = get_footer_master(self.soup)
         self.assertEqual(master, "*Diterjemahkan dengan Bing Translator ")
+
+    def test_get_arti_berhub_jumlah(self):
+        secondary = get_arti_berhub(self.soup)
+        self.assertEqual(len(secondary), 10)
+
+    def test_get_arti_berhub_first(self):
+        secondary = get_arti_berhub(self.soup)
+        self.assertEqual(secondary[0], ("bak persneleng (mobil)", "صُنْدُوقُ السُّرْعَةِ"))
 
 if __name__ == "__main__":
     unittest.main()
