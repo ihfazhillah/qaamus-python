@@ -14,11 +14,9 @@ def get_footer_master(soup):
     return result[0].text
 
 def get_arti_berhub(soup):
-    arti = soup.select("td > a")
-    arti = [ x.text for x in arti ] 
-    ara = soup.select("td.lateef")
-    ara = [x.text for x in ara]
-    result = zip(arti, ara) 
+    ind = [x.text for x in soup.select("td > a")]
+    ara = [x.text for x in soup.select("td.lateef")]
+    result = zip(ind, ara) 
     return list(result)
 
 class QaamusTest(unittest.TestCase):
