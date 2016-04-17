@@ -21,6 +21,13 @@ def get_arti_berhub(soup):
        result.append({"ind":ind[i], "ara":ara[i]})
     return result
 
+def get_arti_master(soup):
+    result = {"ind": get_ind_master(soup),
+              "ara": get_ara_master(soup),
+              "footer": get_footer_master(soup)
+             }
+    return result
+
 class QaamusTest(unittest.TestCase):
 
 
@@ -48,6 +55,11 @@ class QaamusTest(unittest.TestCase):
     def test_get_arti_berhub_first(self):
         secondary = get_arti_berhub(self.soup)
         self.assertEqual(secondary[0], {"ind":"bak persneleng (mobil)", "ara":"صُنْدُوقُ السُّرْعَةِ"})
+    
+    def test_get_arti_master(self):
+        "memberikan kembalian berupa dict, {'ind' : indonesia, 'ara': arabic, 'footer': footer_text}"
+        master = get_arti_master(self.soup)
+        self.assertEqual(master, {"ind":"mobil", "ara":"سيارات", "footer":"*Diterjemahkan dengan Bing Translator "})
 
 if __name__ == "__main__":
     unittest.main()
