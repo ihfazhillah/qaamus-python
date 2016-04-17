@@ -28,7 +28,7 @@ def get_arti_master(soup):
              }
     return result
 
-class QaamusTest(unittest.TestCase):
+class AraIndParserTest(unittest.TestCase):
 
 
     def setUp(self):
