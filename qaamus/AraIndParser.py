@@ -1,5 +1,8 @@
+import os
 import unittest
 from bs4 import BeautifulSoup
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def get_ara_master(soup):
     result = soup.select("center > .lateef2")
@@ -37,7 +40,7 @@ class AraIndParserTest(unittest.TestCase):
 
 
     def setUp(self):
-        with open("/home/sakkuun/Project/qaamus/qaamus-python/html/mobil.html", "rb") as f:
+        with open(os.path.join(BASE_DIR,"html/mobil.html"), "rb") as f:
             file = f.read()
         self.soup = BeautifulSoup(file)    
     
