@@ -34,7 +34,9 @@ def get_arti_master(soup):
 def get_next_page_url(soup):
     #http://stackoverflow.com/questions/9007653/how-to-find-tag-with-particular-text-with-beautiful-soup
     find_next = soup.find("a", text="Next »")
-    return find_next['href']
+    if find_next:
+        return find_next['href']
+    return False
 
 class AraIndParserTest(unittest.TestCase):
 
@@ -72,6 +74,12 @@ class AraIndParserTest(unittest.TestCase):
     def test_get_next_page_url(self):
         url_to = get_next_page_url(self.soup)
         self.assertEqual(url_to, "http://qaamus.com/indonesia-arab/mobil/2")
+
+    def test_get_next_page_url_with_no_next_in_page(self):
+        with open(os.path.join(BASE_DIR, "html/mobil2.html"), "rb") as f:
+            soup = BeautifulSoup(f.read())
+        no_next = get_next_page_url(soup)
+        self.assertFalse(no_next)
 
 
 if __name__ == "__main__":
