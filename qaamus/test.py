@@ -16,8 +16,10 @@ def get_footer_master(soup):
 def get_arti_berhub(soup):
     ind = [x.text for x in soup.select("td > a")]
     ara = [x.text for x in soup.select("td.lateef")]
-    result = zip(ind, ara) 
-    return list(result)
+    result = []
+    for i in range(len(ind)):
+       result.append({"ind":ind[i], "ara":ara[i]})
+    return result
 
 class QaamusTest(unittest.TestCase):
 
@@ -45,7 +47,7 @@ class QaamusTest(unittest.TestCase):
 
     def test_get_arti_berhub_first(self):
         secondary = get_arti_berhub(self.soup)
-        self.assertEqual(secondary[0], ("bak persneleng (mobil)", "صُنْدُوقُ السُّرْعَةِ"))
+        self.assertEqual(secondary[0], {"ind":"bak persneleng (mobil)", "ara":"صُنْدُوقُ السُّرْعَةِ"})
 
 if __name__ == "__main__":
     unittest.main()
