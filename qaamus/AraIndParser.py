@@ -28,28 +28,10 @@ def get_arti_master(soup):
              }
     return result
 
-def get_next_page_url(url, condition):
-    """
-    Fungsi untuk mendapatkan url next page ketika kondisi 
-    == True
-    Fungsi ini khusus (yang saya tahu sekarang) qaamus.com
-    dikarenakan website ini berformat
-    http://qaamus.com/indonesia-arab/mobil/1 <-- untuk hal pertama
-    http://qaamus.com/indonesia-arab/mobil/2 <-- untuk hal kedua
-
-    :url adalah url semula
-    :condition adalah sebuah kondisi dimana harus True
-    """
-
-    if condition :
-        splitted_url = url.split("/")
-        page_number = splitted_url[-1]
-        next_page_number = int(page_number) + 1
-        splitted_url.pop()
-        splitted_url.append(str(next_page_number))
-        return "/".join(splitted_url)
-    return "Nothing to do."
-
+def get_next_page_url(soup):
+    #http://stackoverflow.com/questions/9007653/how-to-find-tag-with-particular-text-with-beautiful-soup
+    find_next = soup.find("a", text="Next »")
+    return find_next['href']
 
 class AraIndParserTest(unittest.TestCase):
 
@@ -85,14 +67,10 @@ class AraIndParserTest(unittest.TestCase):
         self.assertEqual(master, {"ind":"mobil", "ara":"سيارات", "footer":"*Diterjemahkan dengan Bing Translator "})
     
     def test_get_next_page_url(self):
-        url = "http://qaamus.com/indonesia-arab/mobil/1"
-        url_to = get_next_page_url(url, True)
+        url_to = get_next_page_url(self.soup)
         self.assertEqual(url_to, "http://qaamus.com/indonesia-arab/mobil/2")
 
-    def test_get_next_page_url_with_false_condition_return_nothing_to_do(self):
-        url = "http://qaamus.com/indonesia-arab/mobil/2"
-        nothing_to_do = get_next_page_url(url, False)
-        self.assertEqual(nothing_to_do, "Nothing to do.")
+
 if __name__ == "__main__":
     unittest.main()
 
