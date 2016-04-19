@@ -19,9 +19,7 @@ def get_footer_master(soup):
 def get_arti_berhub(soup):
     ind = [x.text for x in soup.select("td > a")]
     ara = [x.text for x in soup.select("td.lateef")]
-    result = []
-    for i in range(len(ind)):
-       result.append({"ind":ind[i], "ara":ara[i]})
+    result =[{"ind":ind[i], "ara":ara[i]}for i in range(len(ind))] 
     return result
 
 def get_arti_master(soup):
@@ -38,16 +36,37 @@ def get_next_page_url(soup):
         return find_next['href']
     return False
 
+def get_all_arti_berhub(soup, soupping):
+    #Dapatkan all url dahulu
+    urls = []
+    url_to_visit = []
+    url = get_next_page_url(soup)
+    result = get_arti_berhub(soup)
+    while url:
+        urls.append(url)
+        url_to_visit.append(url)
+        soup = soupping(urls[0])
+        urls.pop()
+        url = get_next_page_url(soup)
+        arti_berhub = get_arti_berhub(soup)
+        result = result + arti_berhub
+    return result
+    
+
+
 class AraIndParserTest(unittest.TestCase):
 
 
+    def get_abs_path(self, path):
+        return os.path.join(BASE_DIR, path)
+
     def soupping(self, file):
-        with open(os.path.join(BASE_DIR, file), 'rb') as f:
+        with open(file, 'rb') as f:
             file = f.read()
         return BeautifulSoup(file)
 
     def setUp(self):
-        self.soup = self.soupping('html/mobil.html')
+        self.soup = self.soupping(self.get_abs_path('html/mobil.html'))
     
     def test_get_master_tranlated(self):
         master = get_ara_master(self.soup)
@@ -76,12 +95,16 @@ class AraIndParserTest(unittest.TestCase):
     
     def test_get_next_page_url(self):
         url_to = get_next_page_url(self.soup)
-        self.assertEqual(url_to, "mobil2.html")
+        self.assertEqual(url_to, self.get_abs_path("html/mobil2.html"))
 
     def test_get_next_page_url_with_no_next_in_page(self):
-        soup = self.soupping("html/mobil2.html")
+        soup = self.soupping(self.get_abs_path("html/mobil2.html"))
         no_next = get_next_page_url(soup)
         self.assertFalse(no_next)
+
+    def test_get_all_kata_berhub(self):
+        secondary = get_all_arti_berhub(self.soup, self.soupping)
+        self.assertEqual(len(secondary), 16)
 
 
 if __name__ == "__main__":
