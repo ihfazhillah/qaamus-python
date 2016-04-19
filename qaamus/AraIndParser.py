@@ -47,19 +47,13 @@ def get_all_arti_berhub(soup, soupping):
     mebuka file dan beautifulsoup
     """
     
-    #Dapatkan all url dahulu
-    urls = []
-    url_to_visit = []
     url = get_next_page_url(soup)
     result = get_arti_berhub(soup)
     while url:
-        urls.append(url)
-        url_to_visit.append(url)
-        soup = soupping(urls[0])
-        urls.pop()
+        soup = soupping(url)
         url = get_next_page_url(soup)
         arti_berhub = get_arti_berhub(soup)
-        result = result + arti_berhub
+        result += arti_berhub
     return result
     
 
@@ -76,15 +70,15 @@ class AraIndParserTest(unittest.TestCase):
         return BeautifulSoup(file)
 
     def setUp(self):
-        self.soup = self.soupping(self.get_abs_path('html/mobil.html'))
+        self.soup = self.soupping(self.get_abs_path('html/rumah+sakit.html'))
     
     def test_get_master_tranlated(self):
         master = get_ara_master(self.soup)
-        self.assertEqual(master, "سيارات")
+        self.assertEqual(master, "مستشفى")
 
     def test_get_master_ind(self):
         master = get_ind_master(self.soup)
-        self.assertEqual(master, "mobil")
+        self.assertEqual(master, "rumah sakit")
 
     def test_get_footer_translation(self):
         master = get_footer_master(self.soup)
@@ -96,25 +90,25 @@ class AraIndParserTest(unittest.TestCase):
 
     def test_get_arti_berhub_first(self):
         secondary = get_arti_berhub(self.soup)
-        self.assertEqual(secondary[0], {"ind":"bak persneleng (mobil)", "ara":"صُنْدُوقُ السُّرْعَةِ"})
+        self.assertEqual(secondary[0], {"ind":"rumah sakit gila", "ara":"بَيتُ الـمَجَانِبِينِ، مُسْتَشْفَى الـمَجَانِيْنِ"})
     
     def test_get_arti_master(self):
         "memberikan kembalian berupa dict, {'ind' : indonesia, 'ara': arabic, 'footer': footer_text}"
         master = get_arti_master(self.soup)
-        self.assertEqual(master, {"ind":"mobil", "ara":"سيارات", "footer":"*Diterjemahkan dengan Bing Translator "})
+        self.assertEqual(master, {"ind":"rumah sakit", "ara":"مستشفى", "footer":"*Diterjemahkan dengan Bing Translator "})
     
     def test_get_next_page_url(self):
         url_to = get_next_page_url(self.soup)
-        self.assertEqual(url_to, self.get_abs_path("html/mobil2.html"))
+        self.assertEqual(url_to, self.get_abs_path("html/rumah+sakit2.html"))
 
     def test_get_next_page_url_with_no_next_in_page(self):
-        soup = self.soupping(self.get_abs_path("html/mobil2.html"))
+        soup = self.soupping(self.get_abs_path("html/rumah+sakit9.html"))
         no_next = get_next_page_url(soup)
         self.assertFalse(no_next)
 
     def test_get_all_kata_berhub(self):
         secondary = get_all_arti_berhub(self.soup, self.soupping)
-        self.assertEqual(len(secondary), 16)
+        self.assertEqual(len(secondary), 89)
 
 
 if __name__ == "__main__":
