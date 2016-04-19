@@ -37,6 +37,16 @@ def get_next_page_url(soup):
     return False
 
 def get_all_arti_berhub(soup, soupping):
+    """
+    ini adalah fungsi yang digunakan untuk mendapatkan semua arti berhubungan
+    baik dihalaman ini, atau dihalaman yang lainnya
+    
+    :soup adalah beautifulsoup object
+    :soupping adalah fungsi yang digunakan untuk membuat beautifulsoup object
+    yang merupakan kombinasi membuka url dan beautifulsoup atau 
+    mebuka file dan beautifulsoup
+    """
+    
     #Dapatkan all url dahulu
     urls = []
     url_to_visit = []
