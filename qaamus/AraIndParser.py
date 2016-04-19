@@ -41,10 +41,13 @@ def get_next_page_url(soup):
 class AraIndParserTest(unittest.TestCase):
 
 
-    def setUp(self):
-        with open(os.path.join(BASE_DIR,"html/mobil.html"), "rb") as f:
+    def soupping(self, file):
+        with open(os.path.join(BASE_DIR, file), 'rb') as f:
             file = f.read()
-        self.soup = BeautifulSoup(file)    
+        return BeautifulSoup(file)
+
+    def setUp(self):
+        self.soup = self.soupping('html/mobil.html')
     
     def test_get_master_tranlated(self):
         master = get_ara_master(self.soup)
@@ -73,7 +76,7 @@ class AraIndParserTest(unittest.TestCase):
     
     def test_get_next_page_url(self):
         url_to = get_next_page_url(self.soup)
-        self.assertEqual(url_to, "http://qaamus.com/indonesia-arab/mobil/2")
+        self.assertEqual(url_to, "mobil2.html")
 
     def test_get_next_page_url_with_no_next_in_page(self):
         with open(os.path.join(BASE_DIR, "html/mobil2.html"), "rb") as f:
