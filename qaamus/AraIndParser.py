@@ -79,8 +79,7 @@ class AraIndParserTest(unittest.TestCase):
         self.assertEqual(url_to, "mobil2.html")
 
     def test_get_next_page_url_with_no_next_in_page(self):
-        with open(os.path.join(BASE_DIR, "html/mobil2.html"), "rb") as f:
-            soup = BeautifulSoup(f.read())
+        soup = self.soupping("html/mobil2.html")
         no_next = get_next_page_url(soup)
         self.assertFalse(no_next)
 
