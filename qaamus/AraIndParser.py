@@ -47,7 +47,6 @@ class IndAraParser:
         ini adalah fungsi yang digunakan untuk mendapatkan semua arti berhubungan
         baik dihalaman ini, atau dihalaman yang lainnya
         
-        :soup adalah beautifulsoup object
         :soupping adalah fungsi yang digunakan untuk membuat beautifulsoup object
         yang merupakan kombinasi membuka url dan beautifulsoup atau 
         mebuka file dan beautifulsoup
