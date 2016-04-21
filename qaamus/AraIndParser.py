@@ -4,6 +4,12 @@ from bs4 import BeautifulSoup
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+class IndAraParser:
+
+
+    def __init__(self, soup):
+        self.soup = soup
+
 def get_ara_master(soup):
     result = soup.select("center > .lateef2")
     return result[0].text
@@ -71,6 +77,7 @@ class AraIndParserTest(unittest.TestCase):
 
     def setUp(self):
         self.soup = self.soupping(self.get_abs_path('html/rumah+sakit.html'))
+        indaraparser = IndAraParser(self.soup)
     
     def test_get_master_tranlated(self):
         master = get_ara_master(self.soup)
