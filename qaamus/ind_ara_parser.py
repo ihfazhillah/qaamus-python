@@ -37,7 +37,7 @@ class IndAraParser(object):
         dengan arti utama dengan **kata-kunci**
         *ind* adalah indonesia
         *ara* adalah arti arabnya."""
-        if soup is not None:
+        if soup is None:
             soup = self.soup
 
         ind = [x.text for x in soup.select("td > a")]
