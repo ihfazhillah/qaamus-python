@@ -5,6 +5,7 @@ from ind_ara_parser import IndAraParser
 
 
 class Qaamus:
+
     def terjemah(self, layanan, query):
         """
         Return terjemahan tergantung dengan **layanan** apa yang dia pilih,
