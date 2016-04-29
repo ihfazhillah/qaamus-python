@@ -49,7 +49,9 @@ class QaamusTest(unittest.TestCase):
         self.assertEqual(this_url, expected_url)
 
 
+def idar(query):
+    return Qaamus().terjemah("idar", query)
+
 if __name__ == "__main__":
-    q = Qaamus()
-    print(q.terjemah("idar", "memukul"))
+    print(idar("memukul"))
     unittest.main()
