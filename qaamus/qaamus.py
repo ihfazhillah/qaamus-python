@@ -4,6 +4,35 @@ from bs4 import BeautifulSoup
 from ind_ara_parser import IndAraParser
 
 
+class pretty_output(object):
+    def __init__(self, dict_obj):
+        self.dict_obj = dict_obj
+
+    @property
+    def header(self):
+        return "-= Arti dari {ind_utama} =-".format(
+                ind_utama=self.dict_obj.get("utama").get("ind"))
+
+
+class PrettyOutputTestCase(unittest.TestCase):
+    def setUp(self):
+        self.dict_ = {'utama': {"ind": "ind_utama",
+                                "ara": "ara_utama",
+                                "footer": "footer"},
+                      'berhubungan': [
+                          {"ind": "ind_pertama",
+                           "ara": "ara_pertama"},
+                          {"ind": "ind_kedua",
+                           "ara": "ara_kedua"}
+                          ]
+                      }
+
+    def test_pretty_output_header(self):
+        po = pretty_output(self.dict_).header
+        expected = "-= Arti dari ind_utama =-"
+        self.assertEqual(po, expected)
+
+
 class Qaamus:
 
     def terjemah(self, layanan, query):
@@ -30,7 +59,8 @@ class Qaamus:
     def build_idar_url(self, query):
         """Return url pencarian sesuai dengan *query* yang dimasukkan."""
         query = "+".join(query.split(" "))
-        url = "http://qaamus.com/indonesia-arab/" + query + "/1"
+        url = "http://qaamus.com/indonesia-arab/{query}/1".format(
+                query=query)
         return url
 
 
