@@ -26,7 +26,7 @@ class IndAraParser(object):
         Return dictionary hasil pencarian dengan kata-kunci
         *ind* untuk pencarian,
         *ara* untuk hasil pencarian,
-        *footer* ditampilkan ketika pencarian menggunakan Bing translator."""
+        *footer* ditampilkan ketika pencarian."""
         return {"ind": self._get_ind_master(),
                 "ara": self._get_ara_master(),
                 "footer": self._get_footer_master()}
