@@ -13,6 +13,11 @@ class pretty_output(object):
         return "-= Arti dari {ind_utama} =-".format(
                 ind_utama=self.dict_obj.get("utama").get("ind"))
 
+    @property
+    def body(self):
+        return "{ara_utama}".format(
+                ara_utama=self.dict_obj.get("utama").get("ara"))
+
 
 class PrettyOutputTestCase(unittest.TestCase):
     def setUp(self):
@@ -30,6 +35,11 @@ class PrettyOutputTestCase(unittest.TestCase):
     def test_pretty_output_header(self):
         po = pretty_output(self.dict_).header
         expected = "-= Arti dari ind_utama =-"
+        self.assertEqual(po, expected)
+
+    def test_pretty_output_arabic(self):
+        po = pretty_output(self.dict_).body
+        expected = "ara_utama"
         self.assertEqual(po, expected)
 
 
@@ -83,5 +93,5 @@ def idar(query):
     return Qaamus().terjemah("idar", query)
 
 if __name__ == "__main__":
-    print(idar("memukul"))
+    # print(idar("memukul"))
     unittest.main()
