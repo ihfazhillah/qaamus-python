@@ -102,7 +102,7 @@ class PrettyOutputTestCase(unittest.TestCase):
 
 class Qaamus:
 
-    def terjemah(self, layanan, query):
+    def terjemah(self, layanan, query, pretty=False):
         """
         Return terjemahan tergantung dengan **layanan** apa yang dia pilih,
         dan **query** apa yang dia pakai.
@@ -115,8 +115,12 @@ class Qaamus:
             url = self.build_idar_url(query)
             soup = self._make_soup(url)
             parser = IndAraParser(soup)
-            return {"utama": parser.get_arti_master(),
-                    "berhubungan": parser.get_all_arti_berhub(self._make_soup)}
+            result = {"utama": parser.get_arti_master(),
+                      "berhubungan": parser.get_all_arti_berhub(
+                          self._make_soup)}
+            if not pretty:
+                return result
+            return pretty_output(result).hasil()
 
     def _make_soup(self, url):
         """Return BeautifulSoup object."""
@@ -146,9 +150,12 @@ class QaamusTest(unittest.TestCase):
         self.assertEqual(this_url, expected_url)
 
 
-def idar(query):
-    return Qaamus().terjemah("idar", query)
+def idar(query, pretty=False):
+    return Qaamus().terjemah("idar", query, pretty)
 
 if __name__ == "__main__":
-    # print(idar("memukul"))
+    print("pretty = False")
+    print(idar("memukul"))
+    print("pretty = True")
+    print(idar("memukul", pretty=True))
     unittest.main()
