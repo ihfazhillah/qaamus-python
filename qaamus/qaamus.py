@@ -18,6 +18,11 @@ class pretty_output(object):
         return "{ara_utama}".format(
                 ara_utama=self.dict_obj.get("utama").get("ara"))
 
+    @property
+    def footer(self):
+        return "-= {footer} =-".format(
+                footer=self.dict_obj.get("utama").get("footer"))
+
 
 class PrettyOutputTestCase(unittest.TestCase):
     def setUp(self):
@@ -40,6 +45,11 @@ class PrettyOutputTestCase(unittest.TestCase):
     def test_pretty_output_arabic(self):
         po = pretty_output(self.dict_).body
         expected = "ara_utama"
+        self.assertEqual(po, expected)
+
+    def test_pretty_output_footer(self):
+        po = pretty_output(self.dict_).footer
+        expected = "-= footer =-"
         self.assertEqual(po, expected)
 
 
