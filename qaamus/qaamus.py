@@ -23,6 +23,31 @@ class pretty_output(object):
         return "-= {footer} =-".format(
                 footer=self.dict_obj.get("utama").get("footer"))
 
+    @property
+    def header_berhubungan(self):
+        return "-= Arti berhubungan dari {ind_utama} =-".format(
+                ind_utama=self.dict_obj.get("utama").get("ind"))
+
+    @property
+    def body_berhubungan(self):
+        arti = []
+        for berhubungan in self.dict_obj.get("berhubungan"):
+            a = "{ind} : {ara}".format(
+                    ind=berhubungan.get("ind"),
+                    ara=berhubungan.get("ara"))
+            arti.append(a)
+
+        return "\n".join(arti)
+
+    def hasil(self):
+        hasil = [self.header,
+                 self.body,
+                 self.footer,
+                 "",
+                 self.header_berhubungan,
+                 self.body_berhubungan]
+        return "\n".join(hasil)
+
 
 class PrettyOutputTestCase(unittest.TestCase):
     def setUp(self):
@@ -50,6 +75,28 @@ class PrettyOutputTestCase(unittest.TestCase):
     def test_pretty_output_footer(self):
         po = pretty_output(self.dict_).footer
         expected = "-= footer =-"
+        self.assertEqual(po, expected)
+
+    def test_pretty_output_header_berhubungan(self):
+        po = pretty_output(self.dict_).header_berhubungan
+        expected = "-= Arti berhubungan dari ind_utama =-"
+        self.assertEqual(po, expected)
+
+    def test_pretty_output_body_berhubungan(self):
+        po = pretty_output(self.dict_).body_berhubungan
+        expected = ("ind_pertama : ara_pertama\n"
+                    "ind_kedua : ara_kedua")
+        self.assertEqual(po, expected)
+
+    def test_pretty_output_hasil(self):
+        po = pretty_output(self.dict_).hasil()
+        expected = ("-= Arti dari ind_utama =-\n"
+                    "ara_utama\n"
+                    "-= footer =-\n"
+                    "\n"
+                    "-= Arti berhubungan dari ind_utama =-\n"
+                    "ind_pertama : ara_pertama\n"
+                    "ind_kedua : ara_kedua")
         self.assertEqual(po, expected)
 
 
