@@ -22,7 +22,7 @@ def get_parser(parser):
 def main():
     namespace = get_parser(add_parser())
     if namespace.idar:
-        print(qaamus.idar(namespace.query))
+        print(qaamus.idar(namespace.query, pretty=True))
 
 if __name__ == "__main__":
     main()
