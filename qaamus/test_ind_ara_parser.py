@@ -32,7 +32,7 @@ class AraIndParserTest(unittest.TestCase):
         self.assertEqual(master, "rumah sakit")
 
     def test_get_footer_translation(self):
-        master = self.indaraparser._get_footer_master()
+        master = self.indaraparser._get_footer()
         self.assertEqual(master, "*Diterjemahkan dengan Bing Translator ")
 
     def test_get_arti_berhub_jumlah(self):
