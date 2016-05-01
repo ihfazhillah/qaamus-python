@@ -24,7 +24,7 @@ class AraIndParserTest(unittest.TestCase):
         del self.indaraparser
 
     def test_get_master_tranlated(self):
-        master = self.indaraparser._get_ara_master()
+        master = self.indaraparser._get_ara()
         self.assertEqual(master, "مستشفى")
 
     def test_get_master_ind(self):
