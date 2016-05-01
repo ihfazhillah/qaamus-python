@@ -36,11 +36,11 @@ class IndAraParser(object):
         dengan arti utama dengan **kata-kunci**
         *ind* adalah indonesia
         *ara* adalah arti arabnya."""
+        if soup is not None:
+            self.soup = soup
 
-        soup = self.soup if soup is None else soup
-
-        ind = [x.text for x in soup.select("td > a")]
-        ara = [x.text for x in soup.select("td.lateef")]
+        ind = [x.text for x in self.soup.select("td > a")]
+        ara = [x.text for x in self.soup.select("td.lateef")]
         return [{"ind": ind[i], "ara":ara[i]}for i in range(len(ind))]
 
     def get_next_page_url(self):
@@ -61,12 +61,11 @@ class IndAraParser(object):
         object yang merupakan kombinasi membuka url dan beautifulsoup atau
         mebuka file dan beautifulsoup
         """
-
         url = self.get_next_page_url()
         result = self.get_arti_berhub()
         while url:
-            print(url)
-            soup = make_soup(url)
-            result += self.get_arti_berhub(soup)
+            next_soup = make_soup(url)
+            next_page = self.get_arti_berhub(next_soup)
+            result += next_page
             url = self.get_next_page_url()
         return result
