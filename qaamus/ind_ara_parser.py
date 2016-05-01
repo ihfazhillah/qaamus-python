@@ -4,7 +4,7 @@ class BaseParser(object):
         """Inisiasi soup objek"""
         self.soup = soup
 
-    def _get_ara_master(self):
+    def _get_ara(self):
         """Return arti utama."""
         return self.soup.select("center > .lateef2")[0].text
 
@@ -30,7 +30,7 @@ class BaseParser(object):
         *ara* untuk hasil pencarian,
         *footer* ditampilkan ketika pencarian."""
         return {"ind": self._get_query(),
-                "ara": self._get_ara_master(),
+                "ara": self._get_ara(),
                 "footer": self._get_footer_master()}
 
 

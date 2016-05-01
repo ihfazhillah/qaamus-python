@@ -20,5 +20,10 @@ class AngkaParserTestCase(unittest.TestCase):
         expected = '123'
         self.assertEqual(result, expected)
 
+    def test_get_ara(self):
+        result = self.angka_parser._get_ara()
+        expected = 'المئة و الثالث و العشرون'
+        self.assertEqual(result, expected)
+
 if __name__ == "__main__":
     unittest.main()
