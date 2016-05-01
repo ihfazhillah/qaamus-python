@@ -18,10 +18,13 @@ class BaseParser(object):
             result = self.soup.select(list_of_css[1])[0].text
         return result
 
-    def _get_footer_master(self):
+    def _get_footer(self):
         """Return footer pencarian, bisa jadi pencarian menggunakan
         Bing translator sehingga ditampilkan di web."""
-        return self.soup.select(".panel-footer")[0].text
+        try:
+            return self.soup.select(".panel-footer")[0].text
+        except IndexError:
+            return ''
 
     def get_arti_master(self):
         """
@@ -31,7 +34,7 @@ class BaseParser(object):
         *footer* ditampilkan ketika pencarian."""
         return {"ind": self._get_query(),
                 "ara": self._get_ara(),
-                "footer": self._get_footer_master()}
+                "footer": self._get_footer()}
 
 
 class IndAraParser(BaseParser):

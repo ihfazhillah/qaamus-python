@@ -25,5 +25,10 @@ class AngkaParserTestCase(unittest.TestCase):
         expected = 'المئة و الثالث و العشرون'
         self.assertEqual(result, expected)
 
+    def test_get_footer(self):
+        result = self.angka_parser._get_footer()
+        expected = ''
+        self.assertEqual(result, expected)
+
 if __name__ == "__main__":
     unittest.main()
