@@ -28,7 +28,7 @@ class AraIndParserTest(unittest.TestCase):
         self.assertEqual(master, "مستشفى")
 
     def test_get_master_ind(self):
-        master = self.indaraparser._get_ind_master()
+        master = self.indaraparser._get_query()
         self.assertEqual(master, "rumah sakit")
 
     def test_get_footer_translation(self):

@@ -8,9 +8,15 @@ class BaseParser(object):
         """Return arti utama."""
         return self.soup.select("center > .lateef2")[0].text
 
-    def _get_ind_master(self):
+    def _get_query(self):
         """Return kata yang dicari."""
-        return self.soup.select(".panel-heading > h3 > .label")[0].text
+        list_of_css = [".panel-heading > h3 > .label",
+                       ".panel-heading > h3 > em"]
+        try:
+            result = self.soup.select(list_of_css[0])[0].text
+        except IndexError:
+            result = self.soup.select(list_of_css[1])[0].text
+        return result
 
     def _get_footer_master(self):
         """Return footer pencarian, bisa jadi pencarian menggunakan
@@ -23,7 +29,7 @@ class BaseParser(object):
         *ind* untuk pencarian,
         *ara* untuk hasil pencarian,
         *footer* ditampilkan ketika pencarian."""
-        return {"ind": self._get_ind_master(),
+        return {"ind": self._get_query(),
                 "ara": self._get_ara_master(),
                 "footer": self._get_footer_master()}
 
