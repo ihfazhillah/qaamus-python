@@ -36,8 +36,8 @@ class IndAraParser(object):
         dengan arti utama dengan **kata-kunci**
         *ind* adalah indonesia
         *ara* adalah arti arabnya."""
-        if soup is None:
-            soup = self.soup
+
+        soup = self.soup if soup is None else soup
 
         ind = [x.text for x in soup.select("td > a")]
         ara = [x.text for x in soup.select("td.lateef")]
@@ -65,7 +65,8 @@ class IndAraParser(object):
         url = self.get_next_page_url()
         result = self.get_arti_berhub()
         while url:
+            print(url)
             soup = make_soup(url)
-            url = self.get_next_page_url()
             result += self.get_arti_berhub(soup)
+            url = self.get_next_page_url()
         return result
