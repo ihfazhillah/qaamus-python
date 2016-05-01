@@ -1,8 +1,4 @@
-
-
-class IndAraParser(object):
-    """Class untuk parsing halaman terjemah
-    indonesia arab."""
+class BaseParser(object):
 
     def __init__(self, soup):
         """Inisiasi soup objek"""
@@ -30,6 +26,11 @@ class IndAraParser(object):
         return {"ind": self._get_ind_master(),
                 "ara": self._get_ara_master(),
                 "footer": self._get_footer_master()}
+
+
+class IndAraParser(BaseParser):
+    """Class untuk parsing halaman terjemah
+    indonesia arab."""
 
     def get_arti_berhub(self, soup=None):
         """Return list of dictionary berupa arti berhubungan
