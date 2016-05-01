@@ -30,5 +30,12 @@ class AngkaParserTestCase(unittest.TestCase):
         expected = ''
         self.assertEqual(result, expected)
 
+    def test_get_arti_master(self):
+        result = self.angka_parser.get_arti_master()
+        expected = {"ind": '123',
+                    "ara": 'المئة و الثالث و العشرون',
+                    "footer": ""}
+        self.assertEqual(result, expected)
+
 if __name__ == "__main__":
     unittest.main()
