@@ -1,7 +1,7 @@
 import unittest
 import requests
 from bs4 import BeautifulSoup
-from parsers import IndAraParser
+from parsers import IndAraParser, AngkaParser
 
 
 class pretty_output(object):
@@ -118,6 +118,16 @@ class Qaamus:
             result = {"utama": parser.get_arti_master(),
                       "berhubungan": parser.get_all_arti_berhub(
                           self._make_soup)}
+            if not pretty:
+                return result
+            return pretty_output(result).hasil()
+
+        elif layanan == "angka":
+            url = self.build_url(query)
+            soup = self._make_soup(url)
+            parser = AngkaParser(soup)
+            result = {"instruksi": parser.get_instruction(),
+                      "utama": parser.get_arti_master()}
             if not pretty:
                 return result
             return pretty_output(result).hasil()
