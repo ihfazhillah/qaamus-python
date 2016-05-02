@@ -1,5 +1,5 @@
 import argparse
-import qaamus
+import api
 
 
 def add_parser():
@@ -12,6 +12,10 @@ def add_parser():
             "-i", "--idar",
             action="store_true",
             help="Mengartikan ke Bahasa Arab dari suatu query")
+    parser.add_argument(
+            "-a", "--angka",
+            action="store_true",
+            help="Mengartikan query berupa angka kedalam bahasa arab")
     return parser
 
 
@@ -22,7 +26,9 @@ def get_parser(parser):
 def main():
     namespace = get_parser(add_parser())
     if namespace.idar:
-        print(qaamus.idar(namespace.query, pretty=True))
+        print(api.idar(namespace.query, pretty=True))
+    elif namespace.angka:
+        print(api.angka(namespace.query, pretty=True))
 
 if __name__ == "__main__":
     main()
