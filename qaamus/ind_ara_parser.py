@@ -10,12 +10,10 @@ class BaseParser(object):
 
     def _get_query(self):
         """Return kata yang dicari."""
-        list_of_css = [".panel-heading > h3 > .label",
-                       ".panel-heading > h3 > em"]
-        try:
-            result = self.soup.select(list_of_css[0])[0].text
-        except IndexError:
-            result = self.soup.select(list_of_css[1])[0].text
+        css_select = [".panel-heading > h3 > .label",
+                      ".panel-heading > h3 > em"]
+        soup = (self.soup.select(x) for x in css_select if self.soup.select(x))
+        result = next(soup)[0].text
         return result
 
     def _get_footer(self):
