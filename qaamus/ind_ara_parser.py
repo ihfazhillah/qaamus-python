@@ -17,8 +17,7 @@ class BaseParser(object):
         return result
 
     def _get_footer(self):
-        """Return footer pencarian, bisa jadi pencarian menggunakan
-        Bing translator sehingga ditampilkan di web."""
+        """Return footer pencarian."""
         try:
             return self.soup.select(".panel-footer")[0].text
         except IndexError:
