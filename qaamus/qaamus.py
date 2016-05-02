@@ -1,7 +1,7 @@
 import unittest
 import requests
 from bs4 import BeautifulSoup
-from ind_ara_parser import IndAraParser
+from parsers import IndAraParser
 
 
 class pretty_output(object):
