@@ -4,7 +4,15 @@ from ind_ara_parser import BaseParser
 
 
 class AngkaParser(BaseParser):
-    pass
+    """Handle terjemah angka page."""
+    def get_instruction(self):
+        """Return the instruction text.
+
+        text is returning 'Terjemah angka adalah menterjemahkan angka
+        kedalam bahasa arab, caranya cukup mudah ketik angka
+        (tanpa titik dan koma) yang akan di terjemahkan'."""
+        text = self.soup.select(".page-header > h1")[0].next_sibling.strip()
+        return text.split(",")[1].strip().capitalize()
 
 
 class AngkaParserTestCase(unittest.TestCase):
@@ -35,6 +43,12 @@ class AngkaParserTestCase(unittest.TestCase):
         expected = {"ind": '123',
                     "ara": 'المئة و الثالث و العشرون',
                     "footer": ""}
+        self.assertEqual(result, expected)
+
+    def test_get_page_header(self):
+        result = self.angka_parser.get_instruction()
+        expected = ("Caranya cukup mudah ketik "
+                    "angka (tanpa titik dan koma) yang akan di terjemahkan")
         self.assertEqual(result, expected)
 
 if __name__ == "__main__":
