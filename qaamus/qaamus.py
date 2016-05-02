@@ -127,11 +127,15 @@ class Qaamus:
         resp = requests.get(url)
         return BeautifulSoup(resp.content)
 
-    def build_idar_url(self, query):
+    def build_url(self, query):
         """Return url pencarian sesuai dengan *query* yang dimasukkan."""
-        query = "+".join(query.split(" "))
-        url = "http://qaamus.com/indonesia-arab/{query}/1".format(
-                query=query)
+        if (isinstance(query, int) or query.isdigit()):
+            url = "http://qaamus.com/terjemah-angka/{number}/angka".format(
+                   number=query)
+        elif isinstance(query, str):
+            query = "+".join(query.split(" "))
+            url = "http://qaamus.com/indonesia-arab/{query}/1".format(
+                    query=query)
         return url
 
 
@@ -140,22 +144,20 @@ class QaamusTest(unittest.TestCase):
     def test_building_idar_url(self):
         q = Qaamus()
         expected_url = "http://qaamus.com/indonesia-arab/capai/1"
-        this_url = q.build_idar_url("capai")
+        this_url = q.build_url("capai")
         self.assertEqual(this_url, expected_url)
 
     def test_building_idar_url_with_multiple_words(self):
         q = Qaamus()
         expected_url = "http://qaamus.com/indonesia-arab/mobil+ambulan+bagus/1"
-        this_url = q.build_idar_url("mobil ambulan bagus")
+        this_url = q.build_url("mobil ambulan bagus")
         self.assertEqual(this_url, expected_url)
 
-
-def idar(query, pretty=False):
-    return Qaamus().terjemah("idar", query, pretty)
+    def test_building_angka_url(self):
+        q = Qaamus()
+        expected_url = "http://qaamus.com/terjemah-angka/123/angka"
+        this_url = q.build_url("123")
+        self.assertEqual(this_url, expected_url)
 
 if __name__ == "__main__":
-    print("pretty = False")
-    print(idar("memukul"))
-    print("pretty = True")
-    print(idar("memukul", pretty=True))
     unittest.main()
