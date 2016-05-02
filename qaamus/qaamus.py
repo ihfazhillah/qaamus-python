@@ -112,7 +112,7 @@ class Qaamus:
             * Terjemah nama
         Sedangkan *query* adalah query pencarian anda"""
         if layanan == "idar":
-            url = self.build_idar_url(query)
+            url = self.build_url(query)
             soup = self._make_soup(url)
             parser = IndAraParser(soup)
             result = {"utama": parser.get_arti_master(),
