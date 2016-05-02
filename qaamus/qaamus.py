@@ -129,7 +129,10 @@ class Qaamus:
 
     def build_url(self, query):
         """Return url pencarian sesuai dengan *query* yang dimasukkan."""
-        if (isinstance(query, int) or query.isdigit()):
+        # syntactic sugar
+        is_angka = isinstance(query, int) or query.isdigit()
+
+        if is_angka:
             url = "http://qaamus.com/terjemah-angka/{number}/angka".format(
                    number=query)
         elif isinstance(query, str):
