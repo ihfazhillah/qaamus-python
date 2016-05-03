@@ -15,7 +15,7 @@ def increase_file_name(file_path):
     if num.isdigit():
         new_file_name = file_name.replace(num, str(int(num) + 1))
     else:
-        new_file_name = file_name + "1"
+        new_file_name = file_name + "2"
     return os.path.join(dir_path, new_file_name)
 
 
@@ -65,7 +65,7 @@ def replace(file_path, new_file_path):
             next_url=next_path_old['href']))
         print(">>>Replacing {next_url} with {file_path}".format(
             next_url=next_path_old['href'],
-            file_path=file_path))
+            file_path=new_file_path))
         replace_path(next_path_old, new_file_path)
     else:
         print(">>>No next url in {file_path}".format(file_path=file_path))
@@ -103,7 +103,7 @@ class FixNextUrlTestCase(unittest.TestCase):
 
     def test_increase_file_name(self):
         file_name = increase_file_name(self.file_path)
-        self.assertEqual(file_name, self.file_path + "1")
+        self.assertEqual(file_name, self.file_path + "2")
 
     def test_increase_file_name_2(self):
         file_name = increase_file_name(os.path.join(THIS_DIR, "rumah+sakit2"))
@@ -118,5 +118,7 @@ if __name__ == "__main__":
         increased_file_name = increase_file_name(os.path.join(THIS_DIR,
                                                               file_name))
         replace(file_name, increased_file_name)
+
+    print(get_abs_paths())
 
     unittest.main()
