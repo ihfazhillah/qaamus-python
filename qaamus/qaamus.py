@@ -42,6 +42,12 @@ class pretty_output(object):
 
         return "\n".join(arti) if arti else arti
 
+    @property
+    def instruction(self):
+        result = ['-= Instruksi Layanan Terjemah Angka =-',
+                  self.dict_obj.get("instruction")]
+        return "\n".join(result)
+
     def hasil(self):
         hasil = [self.header,
                  self.body,
@@ -66,7 +72,8 @@ class PrettyOutputTestCase(unittest.TestCase):
                       }
         self.dict_angka = {'utama': {"ind": "1234",
                                      "ara": "ara_utama",
-                                     "footer": ""}}
+                                     "footer": ""},
+                           'instruction': "Ini adalah instruksi"}
 
     def test_pretty_output_header(self):
         po = pretty_output(self.dict_).header
@@ -115,6 +122,12 @@ class PrettyOutputTestCase(unittest.TestCase):
         expected = ("-= Arti dari 1234 =-\n"
                     "ara_utama\n"
                     "____________________")
+        self.assertEqual(po, expected)
+
+    def test_pretty_output_instruction(self):
+        po = pretty_output(self.dict_angka).instruction
+        expected = ("-= Instruksi Layanan Terjemah Angka =-\n"
+                    "Ini adalah instruksi")
         self.assertEqual(po, expected)
 
 
