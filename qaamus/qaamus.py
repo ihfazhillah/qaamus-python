@@ -61,6 +61,9 @@ class PrettyOutputTestCase(unittest.TestCase):
                            "ara": "ara_kedua"}
                           ]
                       }
+        self.dict_angka = {'utama': {"ind": "1234",
+                                     "ara": "ara_utama",
+                                     "footer": "footer"}}
 
     def test_pretty_output_header(self):
         po = pretty_output(self.dict_).header
@@ -97,6 +100,11 @@ class PrettyOutputTestCase(unittest.TestCase):
                     "-= Arti berhubungan dari ind_utama =-\n"
                     "ind_pertama : ara_pertama\n"
                     "ind_kedua : ara_kedua")
+        self.assertEqual(po, expected)
+
+    def test_pretty_output_footer_angka(self):
+        po = pretty_output(self.dict_angka).hasil()
+        expected = "_" * 19
         self.assertEqual(po, expected)
 
 
