@@ -20,8 +20,9 @@ class pretty_output(object):
 
     @property
     def footer(self):
+        footer = self.dict_obj.get("utama").get("footer")
         return "-= {footer} =-".format(
-                footer=self.dict_obj.get("utama").get("footer"))
+            footer=footer) if footer is not "" else "_" * len(self.header)
 
     @property
     def header_berhubungan(self):
@@ -31,13 +32,15 @@ class pretty_output(object):
     @property
     def body_berhubungan(self):
         arti = []
-        for berhubungan in self.dict_obj.get("berhubungan"):
-            a = "{ind} : {ara}".format(
-                    ind=berhubungan.get("ind"),
-                    ara=berhubungan.get("ara"))
-            arti.append(a)
+        arti_berhub = self.dict_obj.get("berhubungan")
+        if arti_berhub is not None:
+            for berhubungan in arti_berhub:
+                a = "{ind} : {ara}".format(
+                        ind=berhubungan.get("ind"),
+                        ara=berhubungan.get("ara"))
+                arti.append(a)
 
-        return "\n".join(arti)
+        return "\n".join(arti) if arti else arti
 
     def hasil(self):
         hasil = [self.header,
@@ -46,7 +49,7 @@ class pretty_output(object):
                  "",
                  self.header_berhubungan,
                  self.body_berhubungan]
-        return "\n".join(hasil)
+        return "\n".join(hasil if self.body_berhubungan else hasil[:3])
 
 
 class PrettyOutputTestCase(unittest.TestCase):
@@ -63,7 +66,7 @@ class PrettyOutputTestCase(unittest.TestCase):
                       }
         self.dict_angka = {'utama': {"ind": "1234",
                                      "ara": "ara_utama",
-                                     "footer": "footer"}}
+                                     "footer": ""}}
 
     def test_pretty_output_header(self):
         po = pretty_output(self.dict_).header
@@ -103,8 +106,15 @@ class PrettyOutputTestCase(unittest.TestCase):
         self.assertEqual(po, expected)
 
     def test_pretty_output_footer_angka(self):
+        po = pretty_output(self.dict_angka).footer
+        expected = "_" * 20
+        self.assertEqual(po, expected)
+
+    def test_pretty_output_hasil_angka(self):
         po = pretty_output(self.dict_angka).hasil()
-        expected = "_" * 19
+        expected = ("-= Arti dari 1234 =-\n"
+                    "ara_utama\n"
+                    "____________________")
         self.assertEqual(po, expected)
 
 
