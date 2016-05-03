@@ -1,4 +1,5 @@
 import os
+import re
 import unittest
 from bs4 import BeautifulSoup
 
@@ -9,7 +10,6 @@ THIS_DIR = os.path.abspath(os.path.dirname("__file__"))
 def increase_file_name(file_path):
     """Return file_name with increased file_name from *file_path*."""
     dir_path, file_name = os.path.split(file_path)
-    import re
     num = re.match(r'.*?(\d+)$', file_name)
     num = num.group(1) if num else ''
     if num.isdigit():
@@ -21,8 +21,9 @@ def increase_file_name(file_path):
 
 def make_soup(path):
     """Return BeautifulSoup object."""
-    with open(path, "rb") as f:
-        return BeautifulSoup(f)
+    if not os.path.isdir(path):
+        with open(path, "rb") as f:
+            return BeautifulSoup(f)
 
 
 def get_next_path(soup):
@@ -68,7 +69,7 @@ def replace(file_path, new_file_path):
         replace_path(next_path_old, new_file_path)
     else:
         print(">>>No next url in {file_path}".format(file_path=file_path))
-    print(">>>Saving {file} file".format(file=file_path))
+        print(">>>Saving {file} file".format(file=file_path))
     save_replaced(soup, file_path)
     print()
     print(">>>Done")
@@ -109,4 +110,13 @@ class FixNextUrlTestCase(unittest.TestCase):
         self.assertEqual(file_name, os.path.join(THIS_DIR, "rumah+sakit3"))
 
 if __name__ == "__main__":
+    def get_abs_paths():
+        import glob
+        return [os.path.join(THIS_DIR, x) for x in glob.glob("rumah+sakit*")]
+
+    for file_name in get_abs_paths():
+        increased_file_name = increase_file_name(os.path.join(THIS_DIR,
+                                                              file_name))
+        replace(file_name, increased_file_name)
+
     unittest.main()
