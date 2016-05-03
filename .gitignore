@@ -1,7 +1,9 @@
-qaamus/.AraIndParser.py
+qaamus/.*
 qaamus/__pycache__
 qaamus/__pycache__/
 ..gitignore.*
 .gitignore~
 *~*
 *.swp
+*.pyc
+.rope*
