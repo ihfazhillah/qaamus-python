@@ -6,6 +6,7 @@ Adapun script ini, adalah tool command line untuk berinteraksi dengan web ini le
 
 ## Fitur
 > Fitur yang sudah diimplementasi, urutan berdasarkan waktu terimplementasi.
+
 * Parsing halaman terjemah indo arab, keluaran berupa dict objek atau string
 * Cli untuk terjemah indo arab 
 * Modul pretty_output untuk mempercantik output sehingga bukan berupa dict objek lagi
