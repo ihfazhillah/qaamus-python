@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://qaamus.com/indonesia-arab/rumah+sakit/1 --><html lang="en"><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta content="" name="description"/>
+<meta content="moh rifai" name="author"/>
+<link href="http://qaamus.com/favicon.ico" rel="icon"/>
+<title>Qaamus Bahasa Arab </title>
+<script src="./rumah+sakit_files/ca-pub-9379556098928741.js"></script><script src="./rumah+sakit_files/jquery.min.js"></script>
+<!--script type="text/javascript" src="http://qaamus.com/rating/js/jquery-1.7.1.min.js"></script-->
+<script src="./rumah+sakit_files/jquery.5stars.min.js" type="text/javascript"></script>
+<!-- Bootstrap core CSS -->
+<link href="./rumah+sakit_files/bootstrap.min.css" rel="stylesheet"/>
+<!-- Custom styles for this template -->
+<link href="./rumah+sakit_files/custom.css" rel="stylesheet"/>
+<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<script src="./rumah+sakit_files/ie-emulation-modes-warning.js"></script>
+<script type="text/javascript">
+                $(document).ready(function(){
+                        $('.stars').rating({
+                                skin: 'http://qaamus.com/rating/skins/skin.png',          //use full path like 'www.mysite.com/path_to/skin.png'
+                                php: 'http://qaamus.com/rating/admin/php/manager.php',    //use full path like 'www.mysite.com/path_to/manager.php'
+                                debug: true                     //will show message in case of erors, for debugging only
+                        });
+                });
+        </script>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+<div class="container">
+<div class="navbar-header">
+<button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="http://qaamus.com/">Qaamus.com</a>
+</div>
+<div class="navbar-collapse collapse" id="navbar">
+<ul class="nav navbar-nav">
+<li class="active"><a href="http://qaamus.com/indonesia-arab.php">Kamus</a></li>
+<li class=""><a href="http://qaamus.com/nama.php">Terjemah Nama (Pego)</a></li>
+<li class=""><a href="http://qaamus.com/angka.php">Terjemah Angka</a></li>
+<li class=""><a href="http://qaamus.com/peribahasa-bahasa-arab/1">Peribahasa</a></li>
+<!--li><a href="#">Tata Bahasa Arab</a></li-->
+</ul>
+<ul class="nav navbar-nav navbar-right">
+<li class="dropdown">
+<a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="http://qaamus.com/indonesia-arab/rumah+sakit/1#" role="button">Informasi <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li class=""><a href="http://qaamus.com/about.php">Tentang kami</a></li>
+<li class=""><a href="http://qaamus.com/penggunaan.php">Penggunaan</a></li>
+<li class=""><a href="http://qaamus.com/contact.php">Kontak</a></li>
+</ul>
+</li>
+</ul>
+</div><!--/.nav-collapse -->
+</div>
+</nav>
+<div class="container">
+<!-- Main component for a primary marketing message or call to action -->
+<!--div class="jumbotron" style="background:green !important"-->
+<div class="jumbotron front-paper">
+<div class="container">
+<form action="http://qaamus.com/" method="POST">
+<div class="row">
+<div class="col-xs-8 col-xs-offset-2">
+<div class="input-group">
+<input id="search_param" name="search_param" type="hidden" value="all"/>
+<input class="form-control" name="q" placeholder="Masukkan kata..." type="text" value="rumah sakit"/>
+<!--div class="input-group-btn search-panel">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								<span id="search_concept">-- Pilih --</span> <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+							  <li><a href="#id-ar">Indonesia - Arab</a></li>
+							  <li class="divider"></li>							  
+							  <li><a href="#ar-id">Arab - Indonesia</a></li>
+							  <li class="divider"></li>							  
+							  <li><a href="#angka">Terjemah Angka</a></li>
+							  <li class="divider"></li>							  
+							  <li><a href="#nama">Terjemah Nama</a></li>
+							</ul>
+						</div-->
+<span class="input-group-btn">
+<!--button type="submit" name="submit" value="" class="btn btn-default">Terjemah</button-->
+<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+</span>
+</div>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div> <!-- /container -->
+<div class="container">
+<div class="row">
+<div class="col-md-8">
+<div class="page-header">
+<h1>Qaamus<small> Indonesia - Arab</small></h1>
+</div><div class="panel panel-default">
+<div class="panel-heading"><h3>Terjemah yang tepat untuk kata <span class="label label-success">rumah sakit</span> </h3></div>
+<div class="panel-body">
+</div><center><div class="lateef2">مستشفى</div><br/></center><div class="panel-footer">*Diterjemahkan dengan Bing Translator </div></div><script async="" src="./rumah+sakit_files/adsbygoogle.js"></script>
+<!-- Teks Responsif -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-9379556098928741" data-ad-format="auto" data-ad-slot="9605278718" data-adsbygoogle-status="done" style="display: block; height: 60px;"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:617px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:617px;background-color:transparent"><iframe allowfullscreen="true" allowtransparency="true" frameborder="0" height="60" hspace="0" id="aswift_0" marginheight="0" marginwidth="0" name="aswift_0" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" scrolling="no" style="left:0;position:absolute;top:0;" vspace="0" width="617"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<br/><div class="panel panel-default">
+<div class="panel-heading"><h3>Terjemah yang berhubungan dengan kata <span class="label label-success">rumah sakit</span></h3></div>
+<div class="panel-body">
+</div><table class="table table-striped"><thead><tr><th width="200px">INDONESIA</th><th>BACAAN</th><th style="text-align:right">ARAB</th></tr></thead><tbody><tr><td><a href="http://qaamus.com/indonesia-arab/rumah+sakit+gila/1">rumah sakit gila</a></td><td><em>baitul maj<span style="color:blue;text-decoration: underline;font-style:italic;font-weight:bold;">aa</span>nib<span style="color:blue;text-decoration: underline;font-style:italic;font-weight:bold;">ii</span>ni, mustasyfa <span style="color:green;font-weight:bold;">al-</span>maj<span style="color:blue;text-decoration: underline;font-style:italic;font-weight:bold;">aa</span>n<span style="color:blue;text-decoration: underline;font-style:italic;font-weight:bold;">ii</span>ni</em></td><td class="lateef" style="text-align:right"><div>بَيتُ الـمَجَانِبِينِ، مُسْتَشْفَى الـمَجَانِيْنِ</div></td></tr><tr><td><a href="http://qaamus.com/indonesia-arab/rumah+sakit+jiwa/1">rumah sakit jiwa</a></td><td><em>mustasyf<span style="color:blue;text-decoration: underline;font-style:italic;font-weight:bold;">aa</span>l maj<span style="color:blue;text-decoration: underline;font-style:italic;font-weight:bold;">aa</span>dzibi (<span style="color:green;font-weight:bold;">al-</span>maj<span style="color:blue;text-decoration: underline;font-style:italic;font-weight:bold;">aa</span>n<span style="color:blue;text-decoration: underline;font-style:italic;font-weight:bold;">ii</span>n)</em></td><td class="lateef" style="text-align:right"><div>مُسْتَشْفَى الـمَجَاذِبِ (الـمَجَانِيْن)</div></td></tr><tr><td><a href="http://qaamus.com/indonesia-arab/rumah+sakit+kusta/1">rumah sakit kusta</a></td><td><em>mustasyf<span style="color:blue;text-decoration: underline;font-style:italic;font-weight:bold;">aa</span>l baroshi</em></td><td class="lateef" style="text-align:right"><div>مُسْتَشْفَـى البَرَصِ </div></td></tr><tr><td><a href="http://qaamus.com/indonesia-arab/berkurangnya+sakit+/1">berkurangnya sakit </a></td><td><em>huj<span style="color:blue;text-decoration: underline;font-style:italic;font-weight:bold;">uu</span>'ul marodli</em></td><td class="lateef" style="text-align:right"><div>هُجُوْعُ الـمَرَضِ </div></td></tr><tr><td><a href="http://qaamus.com/indonesia-arab/sakit+beranak/1">sakit beranak</a></td><td><em><span style="color:green;font-weight:bold;">al-</span>makh<span style="color:blue;text-decoration: underline;font-style:italic;font-weight:bold;">oo</span>dlu, ath-tholqu</em></td><td class="lateef" style="text-align:right"><div>الـمَخَاضُ, الطَّلْقُ</div></td></tr><tr><td><a href="http://qaamus.com/indonesia-arab/igauan+sakit/1">igauan sakit</a></td><td><em><span style="color:green;font-weight:bold;">al-</span>bahr<span style="color:blue;text-decoration: underline;font-style:italic;font-weight:bold;">oo</span>nu: hadzay<span style="color:blue;text-decoration: underline;font-style:italic;font-weight:bold;">aa</span>nul marodli</em></td><td class="lateef" style="text-align:right"><div>البَحْرَانُ: هَذَيَانُ الـمَرَضِ</div></td></tr><tr><td><a href="http://qaamus.com/indonesia-arab/yang+merasa+sakit+hidungnya/1">yang merasa sakit hidungnya</a></td><td><em><span style="color:green;font-weight:bold;">al-</span>anifu</em></td><td class="lateef" style="text-align:right"><div>الأَنِفُ</div></td></tr><tr><td><a href="http://qaamus.com/indonesia-arab/berbaring+sakit/1">berbaring sakit</a></td><td><em>roqoda, idlthoja'a limarodlin ash<span style="color:blue;text-decoration: underline;font-style:italic;font-weight:bold;">oo</span>bahu</em></td><td class="lateef" style="text-align:right"><div>رَقَدَ, اِضْطَجَعَ لِمَرَضٍ اَصَابَهُ</div></td></tr><tr><td><a href="http://qaamus.com/indonesia-arab/merasa+sakit+dadanya/1">merasa sakit dadanya</a></td><td><em>shodura: syak<span style="color:blue;text-decoration: underline;font-style:italic;font-weight:bold;">aa</span> shodrohu</em></td><td class="lateef" style="text-align:right"><div>صَدُرَ: شَكَا صَدْرَهُ</div></td></tr><tr><td><a href="http://qaamus.com/indonesia-arab/merasa+sakit+hidungnya/1">merasa sakit hidungnya</a></td><td><em>anifa: isytak<span style="color:blue;text-decoration: underline;font-style:italic;font-weight:bold;">aa</span> anfuhu</em></td><td class="lateef" style="text-align:right"><div>أَنِفَ: اِشْتَكَى اَنْفُهُ</div></td></tr></tbody></table></div>Terjemah kurang tepat? atau kesalahan tulisan? silakan laporkan ke admin@qaamus.com atau bisa juga lewat <a href="http://qaamus.com/contact.php">Kontak</a> <center><ul class="pagination"> <li style="font-weight:bold;"><a href="http://qaamus.com/indonesia-arab/rumah+sakit/1#">1</a></li> <li> <a href="http://qaamus.com/indonesia-arab/rumah+sakit/2">2</a></li> <li> <a href="http://qaamus.com/indonesia-arab/rumah+sakit/3">3</a></li> <li> <a href="http://qaamus.com/indonesia-arab/rumah+sakit/4">4</a></li> <li> <a href="http://qaamus.com/indonesia-arab/rumah+sakit/9">9</a></li> <li><a href="coba">Next »</a></li></ul></center>
+</div>
+<div class="col-md-4">
+<div class="panel panel-success">
+<div class="panel-heading">Peribahasa Bahasa Arab</div>
+<div class="panel-body">
+<br/><div class="lateef">لَيْسَ اليَتِيْمُ الَّذِي قَدْ مَاتَ وَالِدُهُ بَلِ اليَتِيْمُ يَتِيْمُ العِلْمِ وَالأَدَبِ</div> <br/> Bukanlah anak yatim itu yang telah meninggal orang tuanya, tapi (sebenarnya) yatim itu adalah yatim ilmu dan budi pekerti  </div>
+</div>
+<script async="" src="./rumah+sakit_files/adsbygoogle.js"></script>
+<!-- Teks Responsif -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-9379556098928741" data-ad-format="auto" data-ad-slot="9605278718" data-adsbygoogle-status="done" style="display: block; height: 250px;"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:293px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:293px;background-color:transparent"><iframe allowfullscreen="true" allowtransparency="true" frameborder="0" height="250" hspace="0" id="aswift_1" marginheight="0" marginwidth="0" name="aswift_1" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" scrolling="no" style="left:0;position:absolute;top:0;" vspace="0" width="293"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<div class="stars" data-id="http://qaamus.com" style="position: static;"><div id="stars_5735_1461084096116_2251" style="display: block; position: relative; overflow: hidden; width: 120px; height: 24px; top: 0px; left: 0px; cursor: pointer;"><div style='position: absolute; top: 0px; left: 96px; padding: 0px; margin: 0px; width: 24px; height: 24px; z-index: 0; background: url("http://qaamus.com/rating/skins/skin.png") -96px 0px repeat-x;'></div><div style='position: absolute; top: 0px; left: 0px; padding: 0px; margin: 0px; width: 96px; height: 24px; z-index: 1; background: url("http://qaamus.com/rating/skins/skin.png") 0px -24px repeat-x;'></div><div style="position:absolute;top:0px;left:0px;padding:0;margin:0;background:url(http://qaamus.com/rating/skins/skin.png) 0px -48px repeat-x;width:0px;height:24px;z-index:2;"></div></div><div class="rating-text" style="z-index:3;">4 / 5 (from 759 votes)</div></div></div></div></div></body></html>

@@ -10,7 +10,8 @@ def increase_file_name(file_path):
     """Return file_name with increased file_name from *file_path*."""
     dir_path, file_name = os.path.split(file_path)
     import re
-    num = re.search('\d*', file_name).group(0)
+    num = re.match(r'.*?(\d+)$', file_name)
+    num = num.group(1) if num else ''
     if num.isdigit():
         new_file_name = file_name.replace(num, str(int(num) + 1))
     else:
