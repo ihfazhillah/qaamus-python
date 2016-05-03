@@ -157,11 +157,19 @@ class Qaamus:
             url = self.build_url(query)
             soup = self._make_soup(url)
             parser = AngkaParser(soup)
-            result = {"instruksi": parser.get_instruction(),
-                      "utama": parser.get_arti_master()}
+            result = {"utama": parser.get_arti_master()}
             if not pretty:
                 return result
             return pretty_output(result).hasil()
+
+        elif layanan == "angka_instruction":
+            url = self.build_url(query)
+            soup = self._make_soup(url)
+            parser = AngkaParser(soup)
+            result = {"instruksi": parser.get_instruction()}
+            if not pretty:
+                return result
+            return pretty_output(result).instruction
 
     def _make_soup(self, url):
         """Return BeautifulSoup object."""
