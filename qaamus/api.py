@@ -7,3 +7,7 @@ def idar(query, pretty=False):
 
 def angka(query, pretty=False):
     return Qaamus().terjemah("angka", query, pretty)
+
+
+def angka_instruction(pretty=False):
+    return Qaamus().terjemah("angka_instruction", pretty)
