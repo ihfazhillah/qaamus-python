@@ -103,5 +103,9 @@ class FixNextUrlTestCase(unittest.TestCase):
         file_name = increase_file_name(self.file_path)
         self.assertEqual(file_name, self.file_path + "1")
 
+    def test_increase_file_name_2(self):
+        file_name = increase_file_name(os.path.join(THIS_DIR, "rumah+sakit2"))
+        self.assertEqual(file_name, os.path.join(THIS_DIR, "rumah+sakit3"))
+
 if __name__ == "__main__":
     unittest.main()
