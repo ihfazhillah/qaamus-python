@@ -10,7 +10,7 @@ def angka(query, pretty=False):
 
 
 def angka_instruction(pretty=False):
-    return Qaamus().terjemah("angka_instruction", pretty)
+    return Qaamus().terjemah("angka_instruction", '123', pretty)
 
 
 def pegon(query, pretty=False):
