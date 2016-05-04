@@ -1,7 +1,7 @@
 import os
 import unittest
 from bs4 import BeautifulSoup
-from parsers import IndAraParser, AngkaParser
+from parsers import IndAraParser, AngkaParser, PegonParser
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -115,8 +115,26 @@ class PegonTestCase(unittest.TestCase):
 
     def test_get_query(self):
         result = self.pegon._get_query()
+        expected = "suratman"
+        self.assertEqual(result, expected)
+
+    def test_get_ara(self):
+        result = self.pegon._get_ara()
         expected = "سوراتمان"
         self.assertEqual(result, expected)
+
+    def test_get_footer(self):
+        result = self.pegon._get_footer()
+        expected = ""
+        self.assertEqual(result, expected)
+
+    def test_get_instruction(self):
+        result = self.pegon.get_instruction()
+        expected = ("Masukkan nama orang (nama yang bukan dari bahasa arab),"
+                    " nama negara, nama kota, nama desa maupun nama lain yang"
+                    " ingin di tulis kedalam tulisan arab")
+        self.assertEqual(result, expected)
+
 
 if __name__ == "__main__":
     unittest.main()

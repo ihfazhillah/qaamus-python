@@ -6,7 +6,7 @@ class BaseParser(object):
 
     def _get_ara(self):
         """Return arti utama."""
-        return self.soup.select("center > .lateef2")[0].text
+        return self.soup.select("center > .lateef2")[0].text.strip()
 
     def _get_query(self):
         """Return kata yang dicari."""
@@ -32,6 +32,13 @@ class BaseParser(object):
         return {"ind": self._get_query(),
                 "ara": self._get_ara(),
                 "footer": self._get_footer()}
+
+
+class InstructionParserMixin(object):
+    """Handle getting instrunction."""
+    def get_instruction(self):
+        text = self.soup.select(".page-header > h1")[0].next_sibling.strip()
+        return text
 
 
 class IndAraParser(BaseParser):
@@ -78,13 +85,12 @@ class IndAraParser(BaseParser):
         return result
 
 
-class AngkaParser(BaseParser):
+class AngkaParser(BaseParser, InstructionParserMixin):
     """Handle terjemah angka page."""
     def get_instruction(self):
-        """Return the instruction text.
+        return super(AngkaParser, self).get_instruction(
+                                        ).split(",")[1].strip().capitalize()
 
-        text is returning 'Terjemah angka adalah menterjemahkan angka
-        kedalam bahasa arab, caranya cukup mudah ketik angka
-        (tanpa titik dan koma) yang akan di terjemahkan'."""
-        text = self.soup.select(".page-header > h1")[0].next_sibling.strip()
-        return text.split(",")[1].strip().capitalize()
+
+class PegonParser(BaseParser, InstructionParserMixin):
+    """Handle terjemah pegon page."""
