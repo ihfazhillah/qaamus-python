@@ -163,7 +163,7 @@ class Qaamus:
             return pretty_output(result).hasil()
 
         elif layanan == "angka_instruction":
-            url = self.build_url(query, layanan)
+            url = self.build_url(query, layanan='angka')
             soup = self._make_soup(url)
             parser = AngkaParser(soup)
             result = {"instruksi": parser.get_instruction()}
@@ -181,7 +181,7 @@ class Qaamus:
             return pretty_output(result).hasil()
 
         elif layanan == "pegon_instruction":
-            url = self.build_url(query, layanan)
+            url = self.build_url(query, layanan='pegon')
             soup = self._make_soup(url)
             parser = PegonParser(soup)
             result = {"instruksi": parser.get_instruction()}
