@@ -1,7 +1,7 @@
 import unittest
 import requests
 from bs4 import BeautifulSoup
-from parsers import IndAraParser, AngkaParser
+from parsers import IndAraParser, AngkaParser, PegonParser
 
 
 class pretty_output(object):
@@ -166,6 +166,24 @@ class Qaamus:
             url = self.build_url(query)
             soup = self._make_soup(url)
             parser = AngkaParser(soup)
+            result = {"instruksi": parser.get_instruction()}
+            if not pretty:
+                return result
+            return pretty_output(result).instruction
+
+        elif layanan == "pegon":
+            url = self.build_url(query)
+            soup = self._make_soup(url)
+            parser = PegonParser(soup)
+            result = {'utama': parser.get_arti_master()}
+            if not pretty:
+                return result
+            return pretty_output(result).hasil()
+
+        elif layanan == "pegon_instruction":
+            url = self.build_url(query)
+            soup = self._make_soup(url)
+            parser = PegonParser(soup)
             result = {"instruksi": parser.get_instruction()}
             if not pretty:
                 return result
