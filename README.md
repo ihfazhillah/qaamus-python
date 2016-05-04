@@ -14,4 +14,6 @@ Adapun script ini, adalah tool command line untuk berinteraksi dengan web ini le
 * Cli option untuk terjemah angka
 * Cli option untuk instruksi terjemah angka
 * Script pengubah Next url untuk keperluan testing
-
+* Parsing halaman terjemah nama (pegon), keluaran berupa dict objek atau string
+* Cli option untuk *pegon*isasi
+* Cli option untuk instruksi *pegon*isasi
