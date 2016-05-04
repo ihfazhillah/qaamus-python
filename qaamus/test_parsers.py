@@ -12,12 +12,14 @@ def soupping(file):
     return BeautifulSoup(file)
 
 
+def get_abs_path(path):
+    return os.path.join(BASE_DIR, path)
+
+
 class AraIndParserTest(unittest.TestCase):
-    def get_abs_path(self, path):
-        return os.path.join(BASE_DIR, path)
 
     def setUp(self):
-        self.soup = soupping(self.get_abs_path('html/rumah+sakit'))
+        self.soup = soupping(get_abs_path('html/rumah+sakit'))
         self.indaraparser = IndAraParser(self.soup)
 
     def tearDown(self):
@@ -55,10 +57,10 @@ class AraIndParserTest(unittest.TestCase):
 
     def test_get_next_page_url(self):
         url_to = self.indaraparser.get_next_page_url()
-        self.assertEqual(url_to, self.get_abs_path("html/rumah+sakit2"))
+        self.assertEqual(url_to, get_abs_path("html/rumah+sakit2"))
 
     def test_get_next_page_url_with_no_next_in_page(self):
-        soup = soupping(self.get_abs_path("html/rumah+sakit9"))
+        soup = soupping(get_abs_path("html/rumah+sakit9"))
         no_next = IndAraParser(soup).get_next_page_url()
         self.assertFalse(no_next)
 
@@ -68,11 +70,9 @@ class AraIndParserTest(unittest.TestCase):
 
 
 class AngkaParserTestCase(unittest.TestCase):
-    with open("../html/angka123", "rb") as f:
-        f = f.read()
-    soup = BeautifulSoup(f)
 
     def setUp(self):
+        self.soup = soupping(get_abs_path("html/angka123"))
         self.angka_parser = AngkaParser(self.soup)
 
     def test_get_angka(self):
@@ -103,6 +103,20 @@ class AngkaParserTestCase(unittest.TestCase):
                     "angka (tanpa titik dan koma) yang akan di terjemahkan")
         self.assertEqual(result, expected)
 
+
+class PegonTestCase(unittest.TestCase):
+    def setUp(self):
+        self.soup = soupping(get_abs_path("html/pegon_suratman"))
+        self.pegon = PegonParser(self.soup)
+
+    def tearDown(self):
+        del self.pegon
+        del self.soup
+
+    def test_get_query(self):
+        result = self.pegon._get_query()
+        expected = "سوراتمان"
+        self.assertEqual(result, expected)
 
 if __name__ == "__main__":
     unittest.main()
