@@ -211,5 +211,11 @@ class QaamusTest(unittest.TestCase):
         this_url = q.build_url("123")
         self.assertEqual(this_url, expected_url)
 
+    def test_building_pegon_url(self):
+        q = Qaamus()
+        expected_url = "http://qaamus.com/terjemah-nama/suratman"
+        this_url = q.build_url("suratman", "pegon")
+        self.assertEqual(this_url, expected_url)
+
 if __name__ == "__main__":
     unittest.main()
