@@ -18,6 +18,15 @@ def add_parser():
            "-A", "--angka-instruction",
            action="store_true",
            help="Instruksi layanan terjemah angka")
+    parser.add_argument(
+           "-p", "--pegon",
+           action="store",
+           metavar="NAMA",
+           help="Mengartikan mem-pegon-kan query")
+    parser.add_argument(
+           "-P", "--pegon-instruction",
+           action="store_true",
+           help="Instruksi layanan terjemah pegon")
     return parser
 
 
@@ -35,6 +44,12 @@ def main():
 
     elif namespace.angka_instruction:
         print(api.angka_instruction(pretty=True))
+
+    elif namespace.pegon:
+        print(api.pegon(namespace.pegon, pretty=True))
+
+    elif namespace.pegon_instruction:
+        print(api.pegon_instruction(pretty=True))
 
 if __name__ == "__main__":
     main()
