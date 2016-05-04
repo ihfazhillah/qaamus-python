@@ -176,18 +176,23 @@ class Qaamus:
         resp = requests.get(url)
         return BeautifulSoup(resp.content)
 
-    def build_url(self, query):
+    def build_url(self, query, layanan=None):
         """Return url pencarian sesuai dengan *query* yang dimasukkan."""
         # syntactic sugar
         is_angka = isinstance(query, int) or query.isdigit()
 
-        if is_angka:
-            url = "http://qaamus.com/terjemah-angka/{number}/angka".format(
-                   number=query)
-        elif isinstance(query, str):
-            query = "+".join(query.split(" "))
-            url = "http://qaamus.com/indonesia-arab/{query}/1".format(
-                    query=query)
+        if not layanan:
+            if is_angka:
+                url = "http://qaamus.com/terjemah-angka/{number}/angka".format(
+                    number=query)
+            elif isinstance(query, str):
+                query = "+".join(query.split(" "))
+                url = "http://qaamus.com/indonesia-arab/{query}/1".format(
+                        query=query)
+        else:
+            if layanan == 'pegon':
+                url = 'http://qaamus.com/terjemah-nama/{pegon}'.format(
+                    pegon=query)
         return url
 
 
