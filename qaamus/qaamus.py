@@ -193,7 +193,23 @@ class Qaamus:
             if layanan == 'pegon':
                 url = 'http://qaamus.com/terjemah-nama/{pegon}'.format(
                     pegon=query)
+            elif layanan == 'idar':
+                query = "+".join(query.split(" "))
+                url = "http://qaamus.com/indonesia-arab/{query}/1".format(
+                        query=query)
+            elif layanan == 'angka':
+                url = "http://qaamus.com/terjemah-angka/{number}/angka".format(
+                    number=query)
+            else:
+                raise LayananValueError("Layanan tidak ditemukan")
+
         return url
+
+
+class LayananValueError(ValueError):
+    def __init__(self, message=None):
+        super(LayananValueError, self).__init__(message)
+        self.message = message
 
 
 class QaamusTest(unittest.TestCase):
@@ -221,6 +237,32 @@ class QaamusTest(unittest.TestCase):
         expected_url = "http://qaamus.com/terjemah-nama/suratman"
         this_url = q.build_url("suratman", "pegon")
         self.assertEqual(this_url, expected_url)
+
+    def test_building_angka_url_with_layanan(self):
+        q = Qaamus()
+        expected_url = "http://qaamus.com/terjemah-angka/123/angka"
+        this_url = q.build_url("123", 'angka')
+        self.assertEqual(this_url, expected_url)
+
+    def test_building_idar_url_with_multiple_words_with_layanan(self):
+        q = Qaamus()
+        expected_url = "http://qaamus.com/indonesia-arab/mobil+ambulan+bagus/1"
+        this_url = q.build_url("mobil ambulan bagus", 'idar')
+        self.assertEqual(this_url, expected_url)
+
+    def test_building_idar_url_with_layanan(self):
+        q = Qaamus()
+        expected_url = "http://qaamus.com/indonesia-arab/capai/1"
+        this_url = q.build_url("capai", 'idar')
+        self.assertEqual(this_url, expected_url)
+
+    def test_building_url_with_wrong_layanan(self):
+        q = Qaamus()
+        try:
+            q.build_url("capai", "lainnya")
+        except LayananValueError as L:
+            self.assertEqual(L.message, "Layanan tidak ditemukan")
+
 
 if __name__ == "__main__":
     unittest.main()
