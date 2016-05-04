@@ -11,3 +11,11 @@ def angka(query, pretty=False):
 
 def angka_instruction(pretty=False):
     return Qaamus().terjemah("angka_instruction", pretty)
+
+
+def pegon(query, pretty=False):
+    return Qaamus().terjemah("pegon", query, pretty)
+
+
+def pegon_instruction(pretty=False):
+    return Qaamus().terjemah("pegon_instruction", "surabaya", pretty)
