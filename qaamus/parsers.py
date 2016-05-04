@@ -1,27 +1,55 @@
+class QaamusResult(object):
+    def __init__(self,
+                 ara=None,
+                 query=None,
+                 footer=None):
+
+        self.ara = ara
+        self.query = query
+        self.footer = footer
+
+    @property
+    def arti_master(self):
+        return self.ara, self.query, self.footer
+
+    def __repr__(self):
+        retval = "<QaamusResult: {}>".format(self.query)
+        return retval
+
+
 class BaseParser(object):
 
     def __init__(self, soup):
         """Inisiasi soup objek"""
         self.soup = soup
+        self.ara= self.soup.select(
+            "center > .lateef2")[0].text.strip()
 
-    def _get_ara(self):
-        """Return arti utama."""
-        return self.soup.select("center > .lateef2")[0].text.strip()
-
-    def _get_query(self):
-        """Return kata yang dicari."""
+        # query selectors
         css_select = [".panel-heading > h3 > .label",
                       ".panel-heading > h3 > em"]
         soup = (self.soup.select(x) for x in css_select if self.soup.select(x))
-        result = next(soup)[0].text
-        return result
+        self.query = next(soup)[0].text
+
+        # footer selector
+
+        try:
+            self.footer = self.soup.select(".panel-footer")[0].text
+        except IndexError:
+            self.footer = None
+
+
+    def _get_ara(self):
+        """Return arti utama."""
+        return QaamusResult(ara=self.ara)
+
+    def _get_query(self):
+        """Return kata yang dicari."""
+        return QaamusResult(query=self.query)
 
     def _get_footer(self):
         """Return footer pencarian."""
-        try:
-            return self.soup.select(".panel-footer")[0].text
-        except IndexError:
-            return ''
+        return QaamusResult(footer=self.footer)
 
     def get_arti_master(self):
         """
@@ -29,9 +57,7 @@ class BaseParser(object):
         *ind* untuk pencarian,
         *ara* untuk hasil pencarian,
         *footer* ditampilkan ketika pencarian."""
-        return {"ind": self._get_query(),
-                "ara": self._get_ara(),
-                "footer": self._get_footer()}
+        return QaamusResult(self.query, self.ara, self.footer)
 
 
 class InstructionParserMixin(object):

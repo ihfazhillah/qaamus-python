@@ -1,7 +1,7 @@
 import os
 import unittest
 from bs4 import BeautifulSoup
-from parsers import IndAraParser, AngkaParser, PegonParser
+from parsers import IndAraParser, AngkaParser, PegonParser, QaamusResult
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,15 +27,18 @@ class AraIndParserTest(unittest.TestCase):
 
     def test_get_master_tranlated(self):
         master = self.indaraparser._get_ara()
-        self.assertEqual(master, "مستشفى")
+        self.assertTrue(isinstance(master, QaamusResult))
+        self.assertEqual(master.ara, "مستشفى")
 
     def test_get_master_ind(self):
         master = self.indaraparser._get_query()
-        self.assertEqual(master, "rumah sakit")
+        self.assertTrue(isinstance(master, QaamusResult))
+        self.assertEqual(master.query, "rumah sakit")
 
     def test_get_footer_translation(self):
         master = self.indaraparser._get_footer()
-        self.assertEqual(master, "*Diterjemahkan dengan Bing Translator ")
+        self.assertTrue(isinstance(master, QaamusResult))
+        self.assertEqual(master.footer, "*Diterjemahkan dengan Bing Translator ")
 
     def test_get_arti_berhub_jumlah(self):
         secondary = self.indaraparser.get_arti_berhub()
@@ -51,9 +54,10 @@ class AraIndParserTest(unittest.TestCase):
         """memberikan kembalian berupa dict, {'ind': indonesia,
         'ara': arabic, 'footer': footer_text}"""
         master = self.indaraparser.get_arti_master()
-        self.assertEqual(master, {"ind": "rumah sakit",
-                                  "ara": "مستشفى",
-                                  "footer": "*Diterjemahkan dengan Bing Translator "})
+        self.assertTrue(isinstance(master, QaamusResult))
+        self.assertEqual(master.arti_master, ("rumah sakit",
+                                  "مستشفى",
+                                  "*Diterjemahkan dengan Bing Translator "))
 
     def test_get_next_page_url(self):
         url_to = self.indaraparser.get_next_page_url()
