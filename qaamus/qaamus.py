@@ -45,7 +45,7 @@ class pretty_output(object):
     @property
     def instruction(self):
         result = ['-= Instruksi Layanan Terjemah Angka =-',
-                  self.dict_obj.get("instruction")]
+                  self.dict_obj.get("instruksi")]
         return "\n".join(result)
 
     def hasil(self):
@@ -73,7 +73,7 @@ class PrettyOutputTestCase(unittest.TestCase):
         self.dict_angka = {'utama': {"ind": "1234",
                                      "ara": "ara_utama",
                                      "footer": ""},
-                           'instruction': "Ini adalah instruksi"}
+                           'instruksi': "Ini adalah instruksi"}
 
     def test_pretty_output_header(self):
         po = pretty_output(self.dict_).header
