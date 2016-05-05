@@ -1,52 +1,58 @@
 import unittest
 import requests
+from collections import namedtuple
 from bs4 import BeautifulSoup
 from parsers import IndAraParser, AngkaParser, PegonParser
 
 
+IDAR = namedtuple("Idar", ("utama", "berhubungan"))
+ANGKA_PEGON = namedtuple("Angka_Pegon", ("hasil", "instruksi"))
+
+
 class pretty_output(object):
-    def __init__(self, dict_obj):
-        self.dict_obj = dict_obj
+    def __init__(self, tuple_obj):
+        self.tuple_obj = tuple_obj
 
     @property
     def header(self):
         return "-= Arti dari {ind_utama} =-".format(
-                ind_utama=self.dict_obj.get("utama").get("ind"))
+                ind_utama=self.tuple_obj[0][0])
 
     @property
     def body(self):
         return "{ara_utama}".format(
-                ara_utama=self.dict_obj.get("utama").get("ara"))
+                ara_utama=self.tuple_obj[0][1])
 
     @property
     def footer(self):
-        footer = self.dict_obj.get("utama").get("footer")
+        footer = self.tuple_obj[0][2]
         return "-= {footer} =-".format(
             footer=footer) if footer is not "" else "_" * len(self.header)
 
     @property
     def header_berhubungan(self):
         return "-= Arti berhubungan dari {ind_utama} =-".format(
-                ind_utama=self.dict_obj.get("utama").get("ind"))
+                ind_utama=self.tuple_obj[0][0])
 
     @property
     def body_berhubungan(self):
         arti = []
-        arti_berhub = self.dict_obj.get("berhubungan")
-        if arti_berhub is not None:
-            for berhubungan in arti_berhub:
-                a = "{ind} : {ara}".format(
-                        ind=berhubungan.get("ind"),
-                        ara=berhubungan.get("ara"))
+        # Note: if the second index is str so that is an instruction
+
+        if hasattr(self.tuple_obj, "berhubungan"):
+            for berhubungan in self.tuple_obj.berhubungan:
+                a = "{ind} : {ara}".format(ind=berhubungan[0],
+                                           ara=berhubungan[1])
                 arti.append(a)
 
         return "\n".join(arti) if arti else arti
 
     @property
     def instruction(self):
-        result = ['-= Instruksi Layanan Terjemah Angka =-',
-                  self.dict_obj.get("instruksi")]
-        return "\n".join(result)
+        if hasattr(self.tuple_obj, "instruksi"):
+            result = ['-= Instruksi Layanan Terjemah {} =-',
+                      self.tuple_obj.instruksi]
+            return "\n".join(result)
 
     def hasil(self):
         hasil = [self.header,
@@ -60,20 +66,11 @@ class pretty_output(object):
 
 class PrettyOutputTestCase(unittest.TestCase):
     def setUp(self):
-        self.dict_ = {'utama': {"ind": "ind_utama",
-                                "ara": "ara_utama",
-                                "footer": "footer"},
-                      'berhubungan': [
-                          {"ind": "ind_pertama",
-                           "ara": "ara_pertama"},
-                          {"ind": "ind_kedua",
-                           "ara": "ara_kedua"}
-                          ]
-                      }
-        self.dict_angka = {'utama': {"ind": "1234",
-                                     "ara": "ara_utama",
-                                     "footer": ""},
-                           'instruksi': "Ini adalah instruksi"}
+        self.dict_ = IDAR(("ind_utama", "ara_utama", "footer"),
+                          [("ind_pertama", "ara_pertama"),
+                           ("ind_kedua", "ara_kedua")])
+        self.dict_angka = ANGKA_PEGON(("1234", "ara_utama", ""),
+                                      "Ini adalah instruksi")
 
     def test_pretty_output_header(self):
         po = pretty_output(self.dict_).header
@@ -125,8 +122,14 @@ class PrettyOutputTestCase(unittest.TestCase):
         self.assertEqual(po, expected)
 
     def test_pretty_output_instruction(self):
-        po = pretty_output(self.dict_angka).instruction
+        po = pretty_output(self.dict_angka).instruction.format("Angka")
         expected = ("-= Instruksi Layanan Terjemah Angka =-\n"
+                    "Ini adalah instruksi")
+        self.assertEqual(po, expected)
+
+    def test_pretty_output_instruction_pegon(self):
+        po = pretty_output(self.dict_angka).instruction.format("Pegon")
+        expected = ("-= Instruksi Layanan Terjemah Pegon =-\n"
                     "Ini adalah instruksi")
         self.assertEqual(po, expected)
 
