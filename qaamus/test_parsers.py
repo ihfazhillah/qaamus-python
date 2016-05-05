@@ -1,7 +1,7 @@
 import os
 import unittest
 from bs4 import BeautifulSoup
-from parsers import IndAraParser, AngkaParser, PegonParser, QaamusResult
+from parsers import IndAraParser, AngkaParser, PegonParser
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,18 +27,15 @@ class AraIndParserTest(unittest.TestCase):
 
     def test_get_master_tranlated(self):
         master = self.indaraparser._get_ara()
-        self.assertTrue(isinstance(master, QaamusResult))
-        self.assertEqual(master.ara, "مستشفى")
+        self.assertEqual(master, "مستشفى")
 
     def test_get_master_ind(self):
         master = self.indaraparser._get_query()
-        self.assertTrue(isinstance(master, QaamusResult))
-        self.assertEqual(master.query, "rumah sakit")
+        self.assertEqual(master, "rumah sakit")
 
     def test_get_footer_translation(self):
         master = self.indaraparser._get_footer()
-        self.assertTrue(isinstance(master, QaamusResult))
-        self.assertEqual(master.footer, "*Diterjemahkan dengan Bing Translator ")
+        self.assertEqual(master, "*Diterjemahkan dengan Bing Translator ")
 
     def test_get_arti_berhub_jumlah(self):
         secondary = self.indaraparser.get_arti_berhub()
@@ -47,15 +44,14 @@ class AraIndParserTest(unittest.TestCase):
     def test_get_arti_berhub_first(self):
         secondary = self.indaraparser.get_arti_berhub()
         self.assertEqual(secondary[0],
-                         {"ind": "rumah sakit gila",
-                          "ara": "بَيتُ الـمَجَانِبِينِ، مُسْتَشْفَى الـمَجَانِيْنِ"})
+                         ("rumah sakit gila",
+                          "بَيتُ الـمَجَانِبِينِ، مُسْتَشْفَى الـمَجَانِيْنِ"))
 
     def test_get_arti_master(self):
         """memberikan kembalian berupa dict, {'ind': indonesia,
         'ara': arabic, 'footer': footer_text}"""
         master = self.indaraparser.get_arti_master()
-        self.assertTrue(isinstance(master, QaamusResult))
-        self.assertEqual(master.arti_master, ("rumah sakit",
+        self.assertEqual(master, ("rumah sakit",
                                   "مستشفى",
                                   "*Diterjemahkan dengan Bing Translator "))
 
@@ -96,9 +92,9 @@ class AngkaParserTestCase(unittest.TestCase):
 
     def test_get_arti_master(self):
         result = self.angka_parser.get_arti_master()
-        expected = {"ind": '123',
-                    "ara": 'المئة و الثالث و العشرون',
-                    "footer": ""}
+        expected = ('123',
+                    'المئة و الثالث و العشرون',
+                    "")
         self.assertEqual(result, expected)
 
     def test_get_page_header(self):

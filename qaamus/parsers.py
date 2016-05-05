@@ -1,55 +1,27 @@
-class QaamusResult(object):
-    def __init__(self,
-                 ara=None,
-                 query=None,
-                 footer=None):
-
-        self.ara = ara
-        self.query = query
-        self.footer = footer
-
-    @property
-    def arti_master(self):
-        return self.ara, self.query, self.footer
-
-    def __repr__(self):
-        retval = "<QaamusResult: {}>".format(self.query)
-        return retval
-
-
 class BaseParser(object):
 
     def __init__(self, soup):
         """Inisiasi soup objek"""
         self.soup = soup
-        self.ara= self.soup.select(
-            "center > .lateef2")[0].text.strip()
-
-        # query selectors
-        css_select = [".panel-heading > h3 > .label",
-                      ".panel-heading > h3 > em"]
-        soup = (self.soup.select(x) for x in css_select if self.soup.select(x))
-        self.query = next(soup)[0].text
-
-        # footer selector
-
-        try:
-            self.footer = self.soup.select(".panel-footer")[0].text
-        except IndexError:
-            self.footer = None
-
 
     def _get_ara(self):
         """Return arti utama."""
-        return QaamusResult(ara=self.ara)
+        return self.soup.select("center > .lateef2")[0].text.strip()
 
     def _get_query(self):
         """Return kata yang dicari."""
-        return QaamusResult(query=self.query)
+        css_select = [".panel-heading > h3 > .label",
+                      ".panel-heading > h3 > em"]
+        soup = (self.soup.select(x) for x in css_select if self.soup.select(x))
+        result = next(soup)[0].text
+        return result
 
     def _get_footer(self):
         """Return footer pencarian."""
-        return QaamusResult(footer=self.footer)
+        try:
+            return self.soup.select(".panel-footer")[0].text
+        except IndexError:
+            return ''
 
     def get_arti_master(self):
         """
@@ -57,7 +29,9 @@ class BaseParser(object):
         *ind* untuk pencarian,
         *ara* untuk hasil pencarian,
         *footer* ditampilkan ketika pencarian."""
-        return QaamusResult(self.query, self.ara, self.footer)
+        return (self._get_query(),
+                self._get_ara(),
+                self._get_footer())
 
 
 class InstructionParserMixin(object):
@@ -76,21 +50,18 @@ class IndAraParser(BaseParser):
         dengan arti utama dengan **kata-kunci**
         *ind* adalah indonesia
         *ara* adalah arti arabnya."""
-        if soup is not None:
-            self.soup = soup
+        self.soup = soup or self.soup
 
         ind = [x.text for x in self.soup.select("td > a")]
         ara = [x.text for x in self.soup.select("td.lateef")]
-        return [{"ind": ind[i], "ara":ara[i]}for i in range(len(ind))]
+        return tuple(zip(ind, ara))  # zip object is not tuple
 
     def get_next_page_url(self):
         """Return url next page bila program menemukan *Next »*,
         else: return *False*."""
         # http://stackoverflow.com/questions/9007653/how-to-find-tag-with-particular-text-with-beautiful-soup
         find_next = self.soup.find("a", text="Next »")
-        if find_next:
-            return find_next['href']
-        return False
+        return find_next['href'] if find_next else False
 
     def get_all_arti_berhub(self, make_soup):
         """
