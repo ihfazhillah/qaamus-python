@@ -16,17 +16,21 @@ class pretty_output(object):
 
     @property
     def header(self):
-        return "-= Arti dari {ind_utama} =-".format(
-                ind_utama=self.tuple_obj[0][0])
+        attrs = ("utama", "hasil")
+        ind_utama = self._getattr(attrs)[0]
+        return "-= Arti dari {ind_utama} =-".format(ind_utama=ind_utama)
 
     @property
     def body(self):
-        return "{ara_utama}".format(
-                ara_utama=self.tuple_obj[0][1])
+        attrs = ("utama", "hasil")
+        ara_utama = self._getattr(attrs)[1]
+        return "{ara_utama}".format(ara_utama=ara_utama)
 
     @property
     def footer(self):
-        footer = self.tuple_obj[0][2]
+        attrs = ("utama", "hasil")
+        footer = self._getattr(attrs)[2]
+
         return "-= {footer} =-".format(
             footer=footer) if footer is not "" else "_" * len(self.header)
 
@@ -38,8 +42,6 @@ class pretty_output(object):
     @property
     def body_berhubungan(self):
         arti = []
-        # Note: if the second index is str so that is an instruction
-
         if hasattr(self.tuple_obj, "berhubungan"):
             for berhubungan in self.tuple_obj.berhubungan:
                 a = "{ind} : {ara}".format(ind=berhubungan[0],
@@ -54,6 +56,15 @@ class pretty_output(object):
             result = ['-= Instruksi Layanan Terjemah {} =-',
                       self.tuple_obj.instruksi]
             return "\n".join(result)
+
+    def _getattr(self, attrs):
+        for attr in attrs:
+            if hasattr(self.tuple_obj, attr):
+                result = getattr(self.tuple_obj, attr)
+            else:
+                pass
+
+        return result
 
     def hasil(self):
         hasil = [self.header,
