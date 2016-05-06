@@ -71,11 +71,22 @@ class AraIndParserTest(unittest.TestCase):
 
     def test_get_hasil_return_Result_instance(self):
         hasil = self.indaraparser.get_arti_master_new()
-        self.assertTrue(hasil, Result)
-        self.assertEqual(hasil.tuple_result, (
+        self.assertTrue(isinstance(hasil, Result))
+        self.assertEqual(hasil.get(), (
                                   "rumah sakit",
                                   "مستشفى",
                                   "*Diterjemahkan dengan Bing Translator "))
+
+    def test_get_arti_berhub_first_Result_instance(self):
+        secondary = self.indaraparser.get_arti_berhub_new()
+        self.assertTrue(isinstance(secondary, Result))
+        self.assertEqual(secondary.berhubungan[0],
+                         ("rumah sakit gila",
+                          "بَيتُ الـمَجَانِبِينِ، مُسْتَشْفَى الـمَجَانِيْنِ"))
+
+    def test_get_all_kata_berhub_Result_instance(self):
+        secondary = self.indaraparser.get_all_arti_berhub_new(soupping)
+        self.assertEqual(len(secondary.berhubungan), 89)
 
 
 class AngkaParserTestCase(unittest.TestCase):
@@ -112,6 +123,13 @@ class AngkaParserTestCase(unittest.TestCase):
                     "angka (tanpa titik dan koma) yang akan di terjemahkan")
         self.assertEqual(result, expected)
 
+    def test_get_instruction_Result_instance(self):
+        result = self.angka_parser.get_instruction_new()
+        expected = ("Caranya cukup mudah ketik "
+                    "angka (tanpa titik dan koma) yang akan di terjemahkan")
+        self.assertTrue(isinstance(result, Result))
+        self.assertEqual(result.instruksi, expected)
+
 
 class PegonTestCase(unittest.TestCase):
     def setUp(self):
@@ -143,6 +161,14 @@ class PegonTestCase(unittest.TestCase):
                     " nama negara, nama kota, nama desa maupun nama lain yang"
                     " ingin di tulis kedalam tulisan arab")
         self.assertEqual(result, expected)
+
+    def test_get_instruction_Result_instance(self):
+        result = self.pegon.get_instruction_new()
+        expected = ("Masukkan nama orang (nama yang bukan dari bahasa arab),"
+                    " nama negara, nama kota, nama desa maupun nama lain yang"
+                    " ingin di tulis kedalam tulisan arab")
+        self.assertTrue(isinstance(result, Result))
+        self.assertEqual(result.instruksi, expected)
 
 
 if __name__ == "__main__":

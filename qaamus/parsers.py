@@ -1,3 +1,6 @@
+from out import Result
+
+
 class BaseParser(object):
 
     def __init__(self, soup):
@@ -33,12 +36,21 @@ class BaseParser(object):
                 self._get_ara(),
                 self._get_footer())
 
+    def get_arti_master_new(self):
+        return Result(self._get_query(),
+                      self._get_ara(),
+                      self._get_footer())
+
 
 class InstructionParserMixin(object):
     """Handle getting instrunction."""
     def get_instruction(self):
         text = self.soup.select(".page-header > h1")[0].next_sibling.strip()
         return text
+
+    def get_instruction_new(self):
+        text = self.soup.select(".page-header > h1")[0].next_sibling.strip()
+        return Result(instruksi=text)
 
 
 class IndAraParser(BaseParser):
@@ -55,6 +67,13 @@ class IndAraParser(BaseParser):
         ind = [x.text for x in self.soup.select("td > a")]
         ara = [x.text for x in self.soup.select("td.lateef")]
         return tuple(zip(ind, ara))  # zip object is not tuple
+
+    def get_arti_berhub_new(self, soup=None):
+        self.soup = soup or self.soup
+
+        ind = [x.text for x in self.soup.select("td > a")]
+        ara = [x.text for x in self.soup.select("td.lateef")]
+        return Result(berhubungan=zip(ind, ara))
 
     def get_next_page_url(self):
         """Return url next page bila program menemukan *Next »*,
@@ -81,12 +100,26 @@ class IndAraParser(BaseParser):
             url = self.get_next_page_url()
         return result
 
+    def get_all_arti_berhub_new(self, make_soup):
+        url = self.get_next_page_url()
+        result = self.get_arti_berhub_new().berhubungan
+        while url:
+            next_soup = make_soup(url)
+            next_page = self.get_arti_berhub_new(next_soup).berhubungan
+            result += next_page
+            url = self.get_next_page_url()
+        return Result(berhubungan=result)
+
 
 class AngkaParser(BaseParser, InstructionParserMixin):
     """Handle terjemah angka page."""
     def get_instruction(self):
         return super(AngkaParser, self).get_instruction(
                                         ).split(",")[1].strip().capitalize()
+
+    def get_instruction_new(self):
+        text = super(AngkaParser, self).get_instruction_new().instruksi
+        return Result(instruksi=text.split(",")[1].strip().capitalize())
 
 
 class PegonParser(BaseParser, InstructionParserMixin):
