@@ -2,6 +2,7 @@ import os
 import unittest
 from bs4 import BeautifulSoup
 from parsers import IndAraParser, AngkaParser, PegonParser
+from out import Result
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -68,6 +69,14 @@ class AraIndParserTest(unittest.TestCase):
         secondary = self.indaraparser.get_all_arti_berhub(soupping)
         self.assertEqual(len(secondary), 89)
 
+    def test_get_hasil_return_Result_instance(self):
+        hasil = self.indaraparser.get_arti_master_new()
+        self.assertTrue(hasil, Result)
+        self.assertEqual(hasil.tuple_result, (
+                                  "rumah sakit",
+                                  "مستشفى",
+                                  "*Diterjemahkan dengan Bing Translator "))
+
 
 class AngkaParserTestCase(unittest.TestCase):
 
@@ -97,7 +106,7 @@ class AngkaParserTestCase(unittest.TestCase):
                     "")
         self.assertEqual(result, expected)
 
-    def test_get_page_header(self):
+    def test_get_instruction(self):
         result = self.angka_parser.get_instruction()
         expected = ("Caranya cukup mudah ketik "
                     "angka (tanpa titik dan koma) yang akan di terjemahkan")
