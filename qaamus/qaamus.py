@@ -6,7 +6,8 @@ from parsers import IndAraParser, AngkaParser, PegonParser
 
 
 IDAR = namedtuple("Idar", ("utama", "berhubungan"))
-ANGKA_PEGON = namedtuple("Angka_Pegon", ("hasil", "instruksi"))
+ANGKA_PEGON = namedtuple("Angka_Pegon", ("hasil"))
+INSTRUCTION = namedtuple("Instruction", ("instruksi"))
 
 
 class pretty_output(object):
@@ -66,40 +67,40 @@ class pretty_output(object):
 
 class PrettyOutputTestCase(unittest.TestCase):
     def setUp(self):
-        self.dict_ = IDAR(("ind_utama", "ara_utama", "footer"),
-                          [("ind_pertama", "ara_pertama"),
-                           ("ind_kedua", "ara_kedua")])
-        self.dict_angka = ANGKA_PEGON(("1234", "ara_utama", ""),
-                                      "Ini adalah instruksi")
+        self.tuple_ = IDAR(("ind_utama", "ara_utama", "footer"),
+                           [("ind_pertama", "ara_pertama"),
+                            ("ind_kedua", "ara_kedua")])
+        self.tuple_angka = ANGKA_PEGON(("1234", "ara_utama", ""),)
+        self.tuple_instruction = INSTRUCTION("Ini adalah instruksi")
 
     def test_pretty_output_header(self):
-        po = pretty_output(self.dict_).header
+        po = pretty_output(self.tuple_).header
         expected = "-= Arti dari ind_utama =-"
         self.assertEqual(po, expected)
 
     def test_pretty_output_arabic(self):
-        po = pretty_output(self.dict_).body
+        po = pretty_output(self.tuple_).body
         expected = "ara_utama"
         self.assertEqual(po, expected)
 
     def test_pretty_output_footer(self):
-        po = pretty_output(self.dict_).footer
+        po = pretty_output(self.tuple_).footer
         expected = "-= footer =-"
         self.assertEqual(po, expected)
 
     def test_pretty_output_header_berhubungan(self):
-        po = pretty_output(self.dict_).header_berhubungan
+        po = pretty_output(self.tuple_).header_berhubungan
         expected = "-= Arti berhubungan dari ind_utama =-"
         self.assertEqual(po, expected)
 
     def test_pretty_output_body_berhubungan(self):
-        po = pretty_output(self.dict_).body_berhubungan
+        po = pretty_output(self.tuple_).body_berhubungan
         expected = ("ind_pertama : ara_pertama\n"
                     "ind_kedua : ara_kedua")
         self.assertEqual(po, expected)
 
     def test_pretty_output_hasil(self):
-        po = pretty_output(self.dict_).hasil()
+        po = pretty_output(self.tuple_).hasil()
         expected = ("-= Arti dari ind_utama =-\n"
                     "ara_utama\n"
                     "-= footer =-\n"
@@ -110,25 +111,25 @@ class PrettyOutputTestCase(unittest.TestCase):
         self.assertEqual(po, expected)
 
     def test_pretty_output_footer_angka(self):
-        po = pretty_output(self.dict_angka).footer
+        po = pretty_output(self.tuple_angka).footer
         expected = "_" * 20
         self.assertEqual(po, expected)
 
     def test_pretty_output_hasil_angka(self):
-        po = pretty_output(self.dict_angka).hasil()
+        po = pretty_output(self.tuple_angka).hasil()
         expected = ("-= Arti dari 1234 =-\n"
                     "ara_utama\n"
                     "____________________")
         self.assertEqual(po, expected)
 
     def test_pretty_output_instruction(self):
-        po = pretty_output(self.dict_angka).instruction.format("Angka")
+        po = pretty_output(self.tuple_instruction).instruction.format("Angka")
         expected = ("-= Instruksi Layanan Terjemah Angka =-\n"
                     "Ini adalah instruksi")
         self.assertEqual(po, expected)
 
     def test_pretty_output_instruction_pegon(self):
-        po = pretty_output(self.dict_angka).instruction.format("Pegon")
+        po = pretty_output(self.tuple_instruction).instruction.format("Pegon")
         expected = ("-= Instruksi Layanan Terjemah Pegon =-\n"
                     "Ini adalah instruksi")
         self.assertEqual(po, expected)
@@ -149,9 +150,8 @@ class Qaamus:
             url = self.build_url(query)
             soup = self._make_soup(url)
             parser = IndAraParser(soup)
-            result = {"utama": parser.get_arti_master(),
-                      "berhubungan": parser.get_all_arti_berhub(
-                          self._make_soup)}
+            result = IDAR(parser.get_arti_master(), parser.get_all_arti_berhub(
+                          self._make_soup))
             if not pretty:
                 return result
             return pretty_output(result).hasil()
@@ -160,7 +160,7 @@ class Qaamus:
             url = self.build_url(query, layanan)
             soup = self._make_soup(url)
             parser = AngkaParser(soup)
-            result = {"utama": parser.get_arti_master()}
+            result = ANGKA_PEGON(parser.get_arti_master())
             if not pretty:
                 return result
             return pretty_output(result).hasil()
@@ -169,16 +169,16 @@ class Qaamus:
             url = self.build_url(query, layanan='angka')
             soup = self._make_soup(url)
             parser = AngkaParser(soup)
-            result = {"instruksi": parser.get_instruction()}
+            result = INSTRUCTION(parser.get_instruction())
             if not pretty:
                 return result
-            return pretty_output(result).instruction
+            return pretty_output(result).instruction.format("Angka")
 
         elif layanan == "pegon":
             url = self.build_url(query, layanan)
             soup = self._make_soup(url)
             parser = PegonParser(soup)
-            result = {'utama': parser.get_arti_master()}
+            result = ANGKA_PEGON(parser.get_arti_master())
             if not pretty:
                 return result
             return pretty_output(result).hasil()
@@ -187,10 +187,10 @@ class Qaamus:
             url = self.build_url(query, layanan='pegon')
             soup = self._make_soup(url)
             parser = PegonParser(soup)
-            result = {"instruksi": parser.get_instruction()}
+            result = INSTRUCTION(parser.get_instruction())
             if not pretty:
                 return result
-            return pretty_output(result).instruction
+            return pretty_output(result).instruction.format("Pegon")
 
     def _make_soup(self, url):
         """Return BeautifulSoup object."""
