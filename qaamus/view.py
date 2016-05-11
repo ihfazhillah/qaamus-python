@@ -31,6 +31,14 @@ INSTRUKSI_TEMPLATE = """###
 
 {instruksi}"""
 
+UTAMA_TEMPLATE = """###
+#Arti dari {query}
+###
+
+{ara}
+
+{footer}"""
+
 
 class View(object):
     def __init__(self, object_=None):
@@ -49,14 +57,7 @@ class View(object):
                 return INSTRUKSI_TEMPLATE.format(instruksi=instruksi)
 
             elif all(utama) and not getattr(self.object_, "berhubungan"):
-                template = ("###\n"
-                            "#Arti dari {query}\n"
-                            "###\n\n"
-                            "{ara}\n"
-
-                            "\n{footer}")
-
-                return template.format(
+                return UTAMA_TEMPLATE.format(
                     query=utama[0],
                     ara=utama[1],
                     footer=utama[2])
