@@ -57,19 +57,24 @@ class View(object):
         else:
             instruksi = getattr(self.object_, "instruksi")
             utama = [getattr(self.object_, x) for x in
-                     ["query", "ara", "footer"]]
+                                                  ["query", "ara", "footer"]]
             berhubungan = getattr(self.object_, "berhubungan")
 
-            if instruksi:
+            # syntactic sugar
+            is_instruksi = all([instruksi, not all(utama), not berhubungan])
+            is_only_utama = all([utama, not instruksi, not berhubungan])
+            is_utama_and_berhubungan = not is_instruksi
+
+            if is_instruksi:
                 return INSTRUKSI_TEMPLATE.format(instruksi=instruksi)
 
-            elif all(utama) and not getattr(self.object_, "berhubungan"):
+            elif is_only_utama:
                 return UTAMA_TEMPLATE.format(
                     query=utama[0],
                     ara=utama[1],
                     footer=utama[2])
 
-            elif all(utama) and berhubungan:
+            elif is_utama_and_berhubungan:
                 utama_ = UTAMA_TEMPLATE.format(query=utama[0],
                                               ara=utama[1],
                                               footer=utama[2])
