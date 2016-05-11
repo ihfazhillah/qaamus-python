@@ -25,33 +25,12 @@ class SampleObjectIdAr(object):
     berhubungan = [("a", "b"), ("c", "d")]
 
 
-INSTRUKSI_TEMPLATE = """###
-#Instruksi
-###
-
-{instruksi}"""
-
-UTAMA_TEMPLATE = """###
-#Arti dari {query}
-###
-
-{ara}
-
-{footer}"""
-
-BERHUBUNGAN_HEADER_TEMPLATE = """
-###
-#Arti berhubungan dari {query}
-###"""
-
-BERHUBUNGAN_BODY_TEMPLATE = """{ind} : {ara}"""
-
-
 class View(object):
-    def __init__(self, template_=None):
-        self.template = __import__(template_) if template_ else {}
+    def __init__(self, template_="default_template"):
+        self.template = __import__(template_)
 
     def render(self, object_=None):
+        template = self.template
         self.object_ = object_
         if self.object_ is None:
             return "No object found."
@@ -67,30 +46,36 @@ class View(object):
             is_utama_and_berhubungan = not is_instruksi
 
             if is_instruksi:
-                return INSTRUKSI_TEMPLATE.format(instruksi=instruksi)
+                return template.INSTRUKSI_TEMPLATE.format(instruksi=instruksi)
 
             elif is_only_utama:
-                return UTAMA_TEMPLATE.format(
+                return template.UTAMA_TEMPLATE.format(
                     query=utama[0],
                     ara=utama[1],
                     footer=utama[2])
 
             elif is_utama_and_berhubungan:
-                utama_ = UTAMA_TEMPLATE.format(query=utama[0],
-                                               ara=utama[1],
-                                               footer=utama[2])
-                berhub_header = BERHUBUNGAN_HEADER_TEMPLATE.format(
+                utama_ = template.UTAMA_TEMPLATE.format(query=utama[0],
+                                                        ara=utama[1],
+                                                        footer=utama[2])
+                berhub_header = template.BERHUBUNGAN_HEADER_TEMPLATE.format(
                     query=utama[0])
-                berhub_body = "\n".join([BERHUBUNGAN_BODY_TEMPLATE.format(
-                                                                 ind=x[0],
-                                                                 ara=x[1])
-                                         for x in berhubungan])
+                berhub_body = "\n".join(
+                    [template.BERHUBUNGAN_BODY_TEMPLATE.format(ind=x[0],
+                                                               ara=x[1])
+                     for x in berhubungan]
+                )
                 return "\n".join([utama_, berhub_header, berhub_body])
 
 
 class ViewTestCase(unittest.TestCase):
-    def test_empty_object(self):
+    def test_empty_template(self):
         view = View()
+        rendered = view.render()
+        self.assertEqual(rendered, "No object found.")
+
+    def test_empty_object(self):
+        view = View("default_template")
         rendered = view.render()
         self.assertEqual(rendered, "No object found.")
 
