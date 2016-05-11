@@ -1,10 +1,22 @@
 
 class View(object):
+    """Handle template with object data given."""
     def __init__(self, template_="default_template"):
+        """Handle importing template."""
         self.template = __import__(template_)
 
     def render(self, object_=None):
+        """Handle rendering object into template.
+
+        object is the class with:
+            - instruksi : string
+            - query : string
+            - ara : string
+            - footer : string
+            - berhubungan : iterable(list,tuple)
+        attributes."""
         template = self.template
+
         if object_ is None:
             return "No object found."
 
