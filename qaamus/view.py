@@ -31,14 +31,14 @@ class View(object):
 
     def render(self, object_=None):
         template = self.template
-        self.object_ = object_
-        if self.object_ is None:
+        if object_ is None:
             return "No object found."
+
         else:
-            instruksi = getattr(self.object_, "instruksi")
-            utama = [getattr(self.object_, x)
+            instruksi = getattr(object_, "instruksi")
+            utama = [getattr(object_, x)
                      for x in ["query", "ara", "footer"]]
-            berhubungan = getattr(self.object_, "berhubungan")
+            berhubungan = getattr(object_, "berhubungan")
 
             # syntactic sugar
             is_instruksi = all([instruksi, not all(utama), not berhubungan])
