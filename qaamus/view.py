@@ -48,16 +48,17 @@ BERHUBUNGAN_BODY_TEMPLATE = """{ind} : {ara}"""
 
 
 class View(object):
-    def __init__(self, object_=None):
-        self.object_ = object_
+    def __init__(self, template_=None):
+        self.template = __import__(template_) if template_ else {}
 
-    def render(self):
+    def render(self, object_=None):
+        self.object_ = object_
         if self.object_ is None:
             return "No object found."
         else:
             instruksi = getattr(self.object_, "instruksi")
-            utama = [getattr(self.object_, x) for x in
-                                                  ["query", "ara", "footer"]]
+            utama = [getattr(self.object_, x)
+                     for x in ["query", "ara", "footer"]]
             berhubungan = getattr(self.object_, "berhubungan")
 
             # syntactic sugar
@@ -76,14 +77,14 @@ class View(object):
 
             elif is_utama_and_berhubungan:
                 utama_ = UTAMA_TEMPLATE.format(query=utama[0],
-                                              ara=utama[1],
-                                              footer=utama[2])
+                                               ara=utama[1],
+                                               footer=utama[2])
                 berhub_header = BERHUBUNGAN_HEADER_TEMPLATE.format(
                     query=utama[0])
                 berhub_body = "\n".join([BERHUBUNGAN_BODY_TEMPLATE.format(
                                                                  ind=x[0],
                                                                  ara=x[1])
-                                          for x in berhubungan])
+                                         for x in berhubungan])
                 return "\n".join([utama_, berhub_header, berhub_body])
 
 
@@ -94,14 +95,14 @@ class ViewTestCase(unittest.TestCase):
         self.assertEqual(rendered, "No object found.")
 
     def test_only_instruction_is_not_none(self):
-        view = View(SampleObject)
-        rendered = view.render()
+        view = View("default_template")
+        rendered = view.render(SampleObject)
         self.assertEqual(rendered,
                          "###\n#Instruksi\n###\n\nIni adalah instruksi")
 
     def test_query_ara_footer_is_not_none(self):
-        view = View(SampleObjectUtama)
-        rendered = view.render()
+        view = View("default_template")
+        rendered = view.render(SampleObjectUtama)
         expected = ("###\n"
                     "#Arti dari coba\n"
                     "###\n\n"
@@ -110,8 +111,8 @@ class ViewTestCase(unittest.TestCase):
         self.assertEqual(rendered, expected)
 
     def test_query_ara_footer_with_berhubungan_is_not_none(self):
-        view = View(SampleObjectIdAr)
-        rendered = view.render()
+        view = View("default_template")
+        rendered = view.render(SampleObjectIdAr)
         expected = ("###\n"
                     "#Arti dari coba\n"
                     "###\n\n"
