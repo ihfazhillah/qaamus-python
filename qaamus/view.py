@@ -39,6 +39,13 @@ UTAMA_TEMPLATE = """###
 
 {footer}"""
 
+BERHUBUNGAN_HEADER_TEMPLATE = """
+###
+#Arti berhubungan dari {query}
+###"""
+
+BERHUBUNGAN_BODY_TEMPLATE = """{ind} : {ara}"""
+
 
 class View(object):
     def __init__(self, object_=None):
@@ -63,23 +70,16 @@ class View(object):
                     footer=utama[2])
 
             elif all(utama) and berhubungan:
-                template = ("###\n"
-                            "#Arti dari {query}\n"
-                            "###\n\n"
-                            "{ara}\n"
-                            "\n{footer}"
-                            "\n\n"
-                            "###\n"
-                            "#Arti berhubungan dari {query}\n"
-                            "###\n"
-                            )
-                berhubungan_ = ["%s : %s" % (x[0], x[1]) for x in berhubungan]
-                berhubungan = "\n".join(berhubungan_)
-
-                return template.format(
-                    query=utama[0],
-                    ara=utama[1],
-                    footer=utama[2]) + berhubungan
+                utama_ = UTAMA_TEMPLATE.format(query=utama[0],
+                                              ara=utama[1],
+                                              footer=utama[2])
+                berhub_header = BERHUBUNGAN_HEADER_TEMPLATE.format(
+                    query=utama[0])
+                berhub_body = "\n".join([BERHUBUNGAN_BODY_TEMPLATE.format(
+                                                                 ind=x[0],
+                                                                 ara=x[1])
+                                          for x in berhubungan])
+                return "\n".join([utama_, berhub_header, berhub_body])
 
 
 class ViewTestCase(unittest.TestCase):
