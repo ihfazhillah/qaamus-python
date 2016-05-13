@@ -40,21 +40,7 @@ class AraIndParserTest(unittest.TestCase):
 
     def test_get_arti_berhub_jumlah(self):
         secondary = self.indaraparser.get_arti_berhub()
-        self.assertEqual(len(secondary), 10)
-
-    def test_get_arti_berhub_first(self):
-        secondary = self.indaraparser.get_arti_berhub()
-        self.assertEqual(secondary[0],
-                         ("rumah sakit gila",
-                          "بَيتُ الـمَجَانِبِينِ، مُسْتَشْفَى الـمَجَانِيْنِ"))
-
-    def test_get_arti_master(self):
-        """memberikan kembalian berupa dict, {'ind': indonesia,
-        'ara': arabic, 'footer': footer_text}"""
-        master = self.indaraparser.get_arti_master()
-        self.assertEqual(master, ("rumah sakit",
-                                  "مستشفى",
-                                  "*Diterjemahkan dengan Bing Translator "))
+        self.assertEqual(len(secondary.berhubungan), 10)
 
     def test_get_next_page_url(self):
         url_to = self.indaraparser.get_next_page_url()
@@ -67,10 +53,10 @@ class AraIndParserTest(unittest.TestCase):
 
     def test_get_all_kata_berhub(self):
         secondary = self.indaraparser.get_all_arti_berhub(soupping)
-        self.assertEqual(len(secondary), 89)
+        self.assertEqual(len(secondary.berhubungan), 89)
 
     def test_get_hasil_return_Result_instance(self):
-        hasil = self.indaraparser.get_arti_master_new()
+        hasil = self.indaraparser.get_arti_master()
         self.assertTrue(isinstance(hasil, Result))
         self.assertEqual(hasil.get(), (
                                   "rumah sakit",
@@ -78,14 +64,14 @@ class AraIndParserTest(unittest.TestCase):
                                   "*Diterjemahkan dengan Bing Translator "))
 
     def test_get_arti_berhub_first_Result_instance(self):
-        secondary = self.indaraparser.get_arti_berhub_new()
+        secondary = self.indaraparser.get_arti_berhub()
         self.assertTrue(isinstance(secondary, Result))
         self.assertEqual(secondary.berhubungan[0],
                          ("rumah sakit gila",
                           "بَيتُ الـمَجَانِبِينِ، مُسْتَشْفَى الـمَجَانِيْنِ"))
 
     def test_get_all_kata_berhub_Result_instance(self):
-        secondary = self.indaraparser.get_all_arti_berhub_new(soupping)
+        secondary = self.indaraparser.get_all_arti_berhub(soupping)
         self.assertEqual(len(secondary.berhubungan), 89)
 
 
@@ -110,21 +96,8 @@ class AngkaParserTestCase(unittest.TestCase):
         expected = ''
         self.assertEqual(result, expected)
 
-    def test_get_arti_master(self):
-        result = self.angka_parser.get_arti_master()
-        expected = ('123',
-                    'المئة و الثالث و العشرون',
-                    "")
-        self.assertEqual(result, expected)
-
-    def test_get_instruction(self):
-        result = self.angka_parser.get_instruction()
-        expected = ("Caranya cukup mudah ketik "
-                    "angka (tanpa titik dan koma) yang akan di terjemahkan")
-        self.assertEqual(result, expected)
-
     def test_get_instruction_Result_instance(self):
-        result = self.angka_parser.get_instruction_new()
+        result = self.angka_parser.get_instruction()
         expected = ("Caranya cukup mudah ketik "
                     "angka (tanpa titik dan koma) yang akan di terjemahkan")
         self.assertTrue(isinstance(result, Result))
@@ -155,15 +128,8 @@ class PegonTestCase(unittest.TestCase):
         expected = ""
         self.assertEqual(result, expected)
 
-    def test_get_instruction(self):
-        result = self.pegon.get_instruction()
-        expected = ("Masukkan nama orang (nama yang bukan dari bahasa arab),"
-                    " nama negara, nama kota, nama desa maupun nama lain yang"
-                    " ingin di tulis kedalam tulisan arab")
-        self.assertEqual(result, expected)
-
     def test_get_instruction_Result_instance(self):
-        result = self.pegon.get_instruction_new()
+        result = self.pegon.get_instruction()
         expected = ("Masukkan nama orang (nama yang bukan dari bahasa arab),"
                     " nama negara, nama kota, nama desa maupun nama lain yang"
                     " ingin di tulis kedalam tulisan arab")

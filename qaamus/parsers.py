@@ -27,16 +27,6 @@ class BaseParser(object):
             return ''
 
     def get_arti_master(self):
-        """
-        Return dictionary hasil pencarian dengan kata-kunci
-        *ind* untuk pencarian,
-        *ara* untuk hasil pencarian,
-        *footer* ditampilkan ketika pencarian."""
-        return (self._get_query(),
-                self._get_ara(),
-                self._get_footer())
-
-    def get_arti_master_new(self):
         return Result(self._get_query(),
                       self._get_ara(),
                       self._get_footer())
@@ -46,10 +36,6 @@ class InstructionParserMixin(object):
     """Handle getting instrunction."""
     def get_instruction(self):
         text = self.soup.select(".page-header > h1")[0].next_sibling.strip()
-        return text
-
-    def get_instruction_new(self):
-        text = self.soup.select(".page-header > h1")[0].next_sibling.strip()
         return Result(instruksi=text)
 
 
@@ -58,17 +44,6 @@ class IndAraParser(BaseParser):
     indonesia arab."""
 
     def get_arti_berhub(self, soup=None):
-        """Return list of dictionary berupa arti berhubungan
-        dengan arti utama dengan **kata-kunci**
-        *ind* adalah indonesia
-        *ara* adalah arti arabnya."""
-        self.soup = soup or self.soup
-
-        ind = [x.text for x in self.soup.select("td > a")]
-        ara = [x.text for x in self.soup.select("td.lateef")]
-        return tuple(zip(ind, ara))  # zip object is not tuple
-
-    def get_arti_berhub_new(self, soup=None):
         self.soup = soup or self.soup
 
         ind = [x.text for x in self.soup.select("td > a")]
@@ -83,29 +58,11 @@ class IndAraParser(BaseParser):
         return find_next['href'] if find_next else False
 
     def get_all_arti_berhub(self, make_soup):
-        """
-        ini adalah fungsi yang digunakan untuk mendapatkan semua arti
-        berhubungan baik dihalaman ini, atau dihalaman yang lainnya
-
-        :make_soup adalah fungsi yang digunakan untuk membuat beautifulsoup
-        object yang merupakan kombinasi membuka url dan beautifulsoup atau
-        mebuka file dan beautifulsoup
-        """
         url = self.get_next_page_url()
-        result = self.get_arti_berhub()
+        result = self.get_arti_berhub().berhubungan
         while url:
             next_soup = make_soup(url)
-            next_page = self.get_arti_berhub(next_soup)
-            result += next_page
-            url = self.get_next_page_url()
-        return result
-
-    def get_all_arti_berhub_new(self, make_soup):
-        url = self.get_next_page_url()
-        result = self.get_arti_berhub_new().berhubungan
-        while url:
-            next_soup = make_soup(url)
-            next_page = self.get_arti_berhub_new(next_soup).berhubungan
+            next_page = self.get_arti_berhub(next_soup).berhubungan
             result += next_page
             url = self.get_next_page_url()
         return Result(berhubungan=result)
@@ -114,11 +71,7 @@ class IndAraParser(BaseParser):
 class AngkaParser(BaseParser, InstructionParserMixin):
     """Handle terjemah angka page."""
     def get_instruction(self):
-        return super(AngkaParser, self).get_instruction(
-                                        ).split(",")[1].strip().capitalize()
-
-    def get_instruction_new(self):
-        text = super(AngkaParser, self).get_instruction_new().instruksi
+        text = super(AngkaParser, self).get_instruction().instruksi
         return Result(instruksi=text.split(",")[1].strip().capitalize())
 
 
