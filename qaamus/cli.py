@@ -37,19 +37,19 @@ def get_parser(parser):
 def main():
     namespace = get_parser(add_parser())
     if namespace.idar:
-        print(api.idar(namespace.idar, pretty=True))
+        print(api.idar(namespace.idar))
 
     elif namespace.angka:
-        print(api.angka(namespace.angka, pretty=True))
+        print(api.angka(namespace.angka))
 
     elif namespace.angka_instruction:
-        print(api.angka_instruction(pretty=True))
+        print(api.angka_instruction())
 
     elif namespace.pegon:
-        print(api.pegon(namespace.pegon, pretty=True))
+        print(api.pegon(namespace.pegon))
 
     elif namespace.pegon_instruction:
-        print(api.pegon_instruction(pretty=True))
+        print(api.pegon_instruction())
 
 if __name__ == "__main__":
     main()
