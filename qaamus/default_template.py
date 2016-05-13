@@ -1,6 +1,6 @@
 
 INSTRUKSI_TEMPLATE = """###
-#Instruksi
+#Instruksi Layanan {layanan}
 ###
 
 {instruksi}"""
@@ -19,6 +19,3 @@ BERHUBUNGAN_HEADER_TEMPLATE = """
 ###"""
 
 BERHUBUNGAN_BODY_TEMPLATE = """{ind} : {ara}"""
-
-
-

@@ -4,7 +4,7 @@ class View(object):
         """Handle importing template."""
         self.template = __import__(template_)
 
-    def render(self, object_=None):
+    def render(self, object_=None, *args, **kwargs):
         """Handle rendering object into template.
 
         object is the class with:
@@ -30,7 +30,7 @@ class View(object):
             is_utama_and_berhubungan = not is_instruksi
 
             if is_instruksi:
-                return self.instruksi_rendered(instruksi)
+                return self.instruksi_rendered(instruksi, *args, **kwargs)
 
             elif is_only_utama:
                 return self.utama_rendered(utama)
@@ -38,8 +38,9 @@ class View(object):
             elif is_utama_and_berhubungan:
                 return self.utama_berhubungan_rendered(utama, berhubungan)
 
-    def instruksi_rendered(self, instruksi):
-        return self.template.INSTRUKSI_TEMPLATE.format(instruksi=instruksi)
+    def instruksi_rendered(self, instruksi, layanan=""):
+        return self.template.INSTRUKSI_TEMPLATE.format(instruksi=instruksi,
+                                                       layanan=layanan)
 
     def utama_rendered(self, utama):
         return self.template.UTAMA_TEMPLATE.format(
