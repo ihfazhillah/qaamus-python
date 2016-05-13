@@ -20,8 +20,7 @@ class View(object):
         else:
             instruksi = getattr(object_, "instruksi")
 
-            utama = [getattr(object_, x)
-                     for x in ["query", "ara", "footer"]]
+            utama = getattr(object_, "utama")
 
             berhubungan = getattr(object_, "berhubungan")
 
