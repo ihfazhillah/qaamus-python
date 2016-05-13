@@ -58,7 +58,7 @@ class AraIndParserTest(unittest.TestCase):
     def test_get_hasil_return_Result_instance(self):
         hasil = self.indaraparser.get_arti_master()
         self.assertTrue(isinstance(hasil, Result))
-        self.assertEqual(hasil.get(), (
+        self.assertEqual(hasil.utama, (
                                   "rumah sakit",
                                   "مستشفى",
                                   "*Diterjemahkan dengan Bing Translator "))
@@ -77,7 +77,7 @@ class AraIndParserTest(unittest.TestCase):
     def test_get_idar(self):
         hasil = self.indaraparser.get_idar(soupping)
         self.assertTrue(hasil.berhubungan)
-        self.assertTrue(hasil.get())
+        self.assertTrue(hasil.utama)
 
 
 class AngkaParserTestCase(unittest.TestCase):
