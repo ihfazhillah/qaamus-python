@@ -1,5 +1,9 @@
 import unittest
 from view import View
+from collections import namedtuple
+
+
+utama = namedtuple("utama", ("query", "ara", "footer"))
 
 
 class SampleObject(object):
@@ -8,7 +12,7 @@ class SampleObject(object):
     ara = None
     footer = None
     berhubungan = None
-    utama = query, ara, footer
+    utama = utama(query, ara, footer)
 
 
 class SampleObjectUtama(object):
@@ -17,7 +21,7 @@ class SampleObjectUtama(object):
     ara = "coba"
     footer = "Ini footer"
     berhubungan = None
-    utama = query, ara, footer
+    utama = utama(query, ara, footer)
 
 
 class SampleObjectIdAr(object):
@@ -26,7 +30,7 @@ class SampleObjectIdAr(object):
     ara = "coba"
     footer = "Ini footer"
     berhubungan = [("a", "b"), ("c", "d")]
-    utama = query, ara, footer
+    utama = utama(query, ara, footer)
 
 
 class ViewTestCase(unittest.TestCase):

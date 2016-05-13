@@ -1,4 +1,8 @@
 import unittest
+from collections import namedtuple
+
+
+utama = namedtuple("utama", ("query", "ara", "footer"))
 
 
 class Result(object):
@@ -13,7 +17,7 @@ class Result(object):
         self.footer = footer
         self.instruksi = instruksi
         self._berhubungan = berhubungan
-        self.utama = self.query, self.ara, self.footer
+        self.utama = utama(self.query, self.ara, self.footer)
 
     @property
     def berhubungan(self):

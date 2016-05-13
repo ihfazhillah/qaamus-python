@@ -43,13 +43,13 @@ class View(object):
 
     def utama_rendered(self, utama):
         return self.template.UTAMA_TEMPLATE.format(
-            query=utama[0],
-            ara=utama[1],
-            footer=utama[2])
+            query=utama.query,
+            ara=utama.ara,
+            footer=utama.footer)
 
     def utama_berhubungan_rendered(self, utama, berhubungan):
         berhub_header = self.template.BERHUBUNGAN_HEADER_TEMPLATE.format(
-            query=utama[0])
+            query=utama.query)
 
         berhub_body = "\n".join(
             [self.template.BERHUBUNGAN_BODY_TEMPLATE.format(ind=x[0], ara=x[1])
