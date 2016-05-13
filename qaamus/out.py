@@ -13,15 +13,13 @@ class Result(object):
         self.footer = footer
         self.instruksi = instruksi
         self._berhubungan = berhubungan
+        self.utama = self.query, self.ara, self.footer
 
     @property
     def berhubungan(self):
         if hasattr(self._berhubungan, "__iter__"):
             return list(self._berhubungan)
         return self._berhubungan
-
-    def get(self):
-        return self.query, self.ara, self.footer
 
 
 class ResultTestCase(unittest.TestCase):
@@ -42,7 +40,7 @@ class ResultTestCase(unittest.TestCase):
     def test_get_return_tuple(self):
         result = Result("ind_utama", "ara_utama", "footer")
         expected = ("ind_utama", "ara_utama", "footer")
-        self.assertEqual(result.get(), expected)
+        self.assertEqual(result.utama, expected)
 
     def test_result_with_result_input_berhubungan(self):
         result = Result(berhubungan=[(1, 2), (3, 4)])
