@@ -1,20 +1,7 @@
-import os
 import unittest
-from bs4 import BeautifulSoup
 from parsers import IndAraParser, AngkaParser, PegonParser
 from out import Result
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
-def soupping(file):
-    with open(file, 'rb') as f:
-        file = f.read()
-    return BeautifulSoup(file)
-
-
-def get_abs_path(path):
-    return os.path.join(BASE_DIR, path)
+from utils import soupping, get_abs_path
 
 
 class AraIndParserTest(unittest.TestCase):
