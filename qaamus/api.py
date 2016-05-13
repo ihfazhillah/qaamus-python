@@ -1,21 +1,21 @@
 from qaamus import Qaamus
 
 
-def idar(query, pretty=False):
-    return Qaamus().terjemah("idar", query, pretty)
+def idar(query):
+    return Qaamus().terjemah("idar", query)
 
 
-def angka(query, pretty=False):
-    return Qaamus().terjemah("angka", query, pretty)
+def angka(query):
+    return Qaamus().terjemah("angka", query)
 
 
-def angka_instruction(pretty=False):
-    return Qaamus().terjemah("angka_instruction", '123', pretty)
+def angka_instruction():
+    return Qaamus().terjemah("angka_instruksi")
 
 
-def pegon(query, pretty=False):
-    return Qaamus().terjemah("pegon", query, pretty)
+def pegon(query):
+    return Qaamus().terjemah("pegon", query)
 
 
-def pegon_instruction(pretty=False):
-    return Qaamus().terjemah("pegon_instruction", "surabaya", pretty)
+def pegon_instruction():
+    return Qaamus().terjemah("pegon_instruksi")
