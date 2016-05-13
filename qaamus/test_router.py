@@ -6,6 +6,10 @@ def coba():
     return "aku"
 
 
+def coba_arg(arg):
+    return arg
+
+
 class QaamusRouterTestCase(unittest.TestCase):
     def test_initial_testing(self):
         router = QaamusRouter()
@@ -27,6 +31,12 @@ class QaamusRouterTestCase(unittest.TestCase):
         router.register("coba", coba)
         result = router.get_controller("bb", "a")
         self.assertEqual(result, "Layanan tidak ditemukan.")
+
+    def test_get_router_with_arg(self):
+        router = QaamusRouter()
+        router.register("coba_arg", coba_arg)
+        result = router.get_controller("coba_arg", "aku")
+        self.assertEqual(result, "aku")
 
 
 if __name__ == "__main__":
