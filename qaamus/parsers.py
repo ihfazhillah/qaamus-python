@@ -67,6 +67,14 @@ class IndAraParser(BaseParser):
             url = self.get_next_page_url()
         return Result(berhubungan=result)
 
+    def get_idar(self, make_soup):
+        utama = self.get_arti_master()
+        berhubungan = self.get_all_arti_berhub(make_soup)
+        return Result(query=utama.query,
+                      ara=utama.ara,
+                      footer=utama.footer,
+                      berhubungan=berhubungan.berhubungan)
+
 
 class AngkaParser(BaseParser, InstructionParserMixin):
     """Handle terjemah angka page."""

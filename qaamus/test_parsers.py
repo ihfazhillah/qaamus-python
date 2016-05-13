@@ -74,6 +74,11 @@ class AraIndParserTest(unittest.TestCase):
         secondary = self.indaraparser.get_all_arti_berhub(soupping)
         self.assertEqual(len(secondary.berhubungan), 89)
 
+    def test_get_idar(self):
+        hasil = self.indaraparser.get_idar(soupping)
+        self.assertTrue(hasil.berhubungan)
+        self.assertTrue(hasil.get())
+
 
 class AngkaParserTestCase(unittest.TestCase):
 
