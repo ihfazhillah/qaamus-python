@@ -21,4 +21,4 @@ class Qaamus:
 
         url = build_url(query, layanan=url_layanan)
         soup = soupping(url)
-        return router.get_controller(layanan, soup, self._make_soup)
+        return router.get_controller(layanan, soup, soupping)
