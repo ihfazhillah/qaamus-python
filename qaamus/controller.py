@@ -1,6 +1,5 @@
-import view
-import parsers
-from router import QaamusRouter
+from qaamus.router import QaamusRouter
+from qaamus import parsers, view
 
 
 router = QaamusRouter()

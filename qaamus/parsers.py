@@ -1,4 +1,4 @@
-from out import Result
+from qaamus.out import Result
 
 
 class BaseParser(object):

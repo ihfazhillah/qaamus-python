@@ -1,5 +1,5 @@
-from controller import router
-from utils import soupping, build_url
+from .controller import router
+from .utils import soupping, build_url
 
 
 class Qaamus:

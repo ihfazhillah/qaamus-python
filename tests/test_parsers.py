@@ -1,7 +1,7 @@
 import unittest
-from parsers import IndAraParser, AngkaParser, PegonParser
-from out import Result
-from utils import soupping, get_abs_path
+from qaamus.parsers import IndAraParser, AngkaParser, PegonParser
+from qaamus.out import Result
+from qaamus.utils import soupping, get_abs_path
 
 
 class AraIndParserTest(unittest.TestCase):

@@ -1,5 +1,5 @@
-from qaamus import Qaamus
-from api import (idar, angka, angka_instruction,
+from qaamus.qaamus import Qaamus
+from qaamus.api import (idar, angka, angka_instruction,
                  pegon, pegon_instruction)
 
 

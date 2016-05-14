@@ -1,5 +1,5 @@
 import unittest
-from view import View
+from qaamus.view import View
 from collections import namedtuple
 
 
@@ -40,19 +40,19 @@ class ViewTestCase(unittest.TestCase):
         self.assertEqual(rendered, "No object found.")
 
     def test_empty_object(self):
-        view = View("default_template")
+        view = View("qaamus.default_template")
         rendered = view.render()
         self.assertEqual(rendered, "No object found.")
 
     def test_only_instruction_is_not_none(self):
-        view = View("default_template")
+        view = View("qaamus.default_template")
         rendered = view.render(SampleObject, "Angka")
         self.assertEqual(rendered,
                          "###\n#Instruksi Layanan Angka\n###"
                          "\n\nIni adalah instruksi")
 
     def test_query_ara_footer_is_not_none(self):
-        view = View("default_template")
+        view = View("qaamus.default_template")
         rendered = view.render(SampleObjectUtama)
         expected = ("###\n"
                     "#Arti dari coba\n"
@@ -62,7 +62,7 @@ class ViewTestCase(unittest.TestCase):
         self.assertEqual(rendered, expected)
 
     def test_query_ara_footer_with_berhubungan_is_not_none(self):
-        view = View("default_template")
+        view = View("qaamus.default_template")
         rendered = view.render(SampleObjectIdAr)
         expected = ("###\n"
                     "#Arti dari coba\n"

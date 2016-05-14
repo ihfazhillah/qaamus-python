@@ -1,5 +1,5 @@
 import unittest
-from utils import build_url, LayananValueError
+from qaamus.utils import build_url, LayananValueError
 
 
 class BuildUrlTest(unittest.TestCase):

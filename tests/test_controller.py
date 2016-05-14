@@ -1,13 +1,13 @@
 import unittest
-from utils import (soupping,
-                   idar_soup,
-                   angka_soup,
-                   pegon_soup)
-from controller import (idar_controller,
-                        angka_controller,
-                        pegon_controller,
-                        angka_instruksi_controller,
-                        pegon_instruksi_controller)
+from qaamus.utils import (soupping,
+                          idar_soup,
+                          angka_soup,
+                          pegon_soup)
+from qaamus.controller import (idar_controller,
+                               angka_controller,
+                               pegon_controller,
+                               angka_instruksi_controller,
+                               pegon_instruksi_controller)
 
 
 class ControllerTestCase(unittest.TestCase):

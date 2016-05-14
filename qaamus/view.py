@@ -1,6 +1,6 @@
 class View(object):
     """Handle template with object data given."""
-    def __init__(self, template_="default_template"):
+    def __init__(self, template_="qaamus.default_template"):
         """Handle importing template."""
         self.template = __import__(template_)
 

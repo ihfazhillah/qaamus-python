@@ -1,5 +1,5 @@
 import unittest
-from router import QaamusRouter
+from qaamus.router import QaamusRouter
 
 
 def coba():
