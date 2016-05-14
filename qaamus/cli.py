@@ -1,55 +1,111 @@
+import sys
 import argparse
 import api
 
 
-def add_parser():
-    parser = argparse.ArgumentParser(description="Terjemah Indonesia Arab")
-    parser.add_argument(
-            "-i", "--idar",
-            action="store",
-            metavar="INDONESIA",
-            help="Mengartikan ke Bahasa Arab dari suatu query")
-    parser.add_argument(
-            "-a", "--angka",
-            action="store",
-            metavar="ANGKA",
-            help="Mengartikan query berupa angka kedalam bahasa arab")
-    parser.add_argument(
-           "-A", "--angka-instruction",
-           action="store_true",
-           help="Instruksi layanan terjemah angka")
-    parser.add_argument(
-           "-p", "--pegon",
-           action="store",
-           metavar="NAMA",
-           help="Mengartikan mem-pegon-kan query")
-    parser.add_argument(
-           "-P", "--pegon-instruction",
-           action="store_true",
-           help="Instruksi layanan terjemah pegon")
-    return parser
+__version__ = "1"
 
 
-def get_parser(parser):
-    return parser.parse_args()
+class QaamusArgParser(argparse.ArgumentParser):
+    def __init__(self, *args, **kwargs):
+        super(QaamusArgParser, self).__init__(*args, **kwargs)
+        self.add_argument("-v", "--version",
+                          action="store_true",
+                          help="Print version program dan exit")
+        self.args = {}
+
+    def process(self):
+        self.args = vars(self.parse_args())
+        if self.args['version']:
+            print("versi Qaamus-python {version}".format(
+                version=__version__))
+            sys.exit(0)
 
 
-def main():
-    namespace = get_parser(add_parser())
-    if namespace.idar:
-        print(api.idar(namespace.idar))
+class IDARArgParser(QaamusArgParser):
+    def __init__(self, *args, **kwargs):
+        super(IDARArgParser, self).__init__(*args, **kwargs)
+        self.description = "Terjemahkan query indonesia ke arab"
+        self.add_argument("QUERY",
+                          help="Query yang akan diterjemahkan")
 
-    elif namespace.angka:
-        print(api.angka(namespace.angka))
+    def process(self):
+        super(IDARArgParser, self).process()
+        if self.args['QUERY']:
+            print(api.idar(self.args['QUERY']))
+        else:
+            return False
+        return True
 
-    elif namespace.angka_instruction:
-        print(api.angka_instruction())
 
-    elif namespace.pegon:
-        print(api.pegon(namespace.pegon))
+class AngkaArgParser(QaamusArgParser):
+    def __init__(self, *args, **kwargs):
+        super(AngkaArgParser, self).__init__(*args, **kwargs)
+        self.description = "Terjemahkan angka ke arab"
 
-    elif namespace.pegon_instruction:
-        print(api.pegon_instruction())
+        self.add_argument("QUERY",
+                          nargs="?",
+                          help="Query yang akan diterjemahkan")
+        self.add_argument("-i", "--instruksi",
+                          action="store_true",
+                          help="Print instruksi terjemah angka")
+
+    def process(self):
+        super(AngkaArgParser, self).process()
+        if self.args['QUERY']:
+            print(api.angka(self.args['QUERY']))
+        elif self.args['instruksi']:
+            print(api.angka_instruksi())
+        else:
+            return False
+        return True
+
+
+class PegonArgParser(QaamusArgParser):
+    def __init__(self, *args, **kwargs):
+        super(PegonArgParser, self).__init__(*args, **kwargs)
+        self.description = "Terjemah pegon"
+
+        self.add_argument("QUERY",
+                          nargs="?",
+                          help="Query yang akan diterjemahkan")
+        self.add_argument("-i", "--instruksi",
+                          action="store_true",
+                          help="Print instruksi terjemah pegon")
+
+    def process(self):
+        super(PegonArgParser, self).process()
+        if self.args['QUERY']:
+            print(api.pegon(self.args['QUERY']))
+        elif self.args['instruksi']:
+            print(api.pegon_instruksi())
+        else:
+            return False
+        return True
+
 
 if __name__ == "__main__":
-    main()
+    args = sys.argv
+    if len(args) > 1:
+        del args[0]
+
+    mode_dict = {'idar': IDARArgParser,
+                 'angka': AngkaArgParser,
+                 'pegon': PegonArgParser,
+                 'version': None}
+
+    if len(args) == 0 or args[0] not in mode_dict:
+        print("Perintah yang tersedia:\n")
+        print("=======================\n")
+        print(", ".join(mode_dict.keys()))
+        sys.exit(1)
+
+    mode = args[0]
+    if mode == 'version':
+        print("Vesi Qaamus: {version}".format(version=__version__))
+        sys.exit(0)
+    else:
+
+        parser = mode_dict[mode]()
+        if not parser.process():
+            parser.print_help()
