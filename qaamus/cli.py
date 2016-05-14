@@ -1,9 +1,10 @@
 import sys
 import argparse
 import api
+from __init__ import __version__
 
 
-__version__ = "1"
+version = "Versi Qaamus-python: {}".format(__version__)
 
 
 class QaamusArgParser(argparse.ArgumentParser):
@@ -17,8 +18,7 @@ class QaamusArgParser(argparse.ArgumentParser):
     def process(self):
         self.args = vars(self.parse_args())
         if self.args['version']:
-            print("versi Qaamus-python {version}".format(
-                version=__version__))
+            print(version)
             sys.exit(0)
 
 
@@ -102,7 +102,7 @@ if __name__ == "__main__":
 
     mode = args[0]
     if mode == 'version':
-        print("Vesi Qaamus: {version}".format(version=__version__))
+        print(version)
         sys.exit(0)
     else:
 
