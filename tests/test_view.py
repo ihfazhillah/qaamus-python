@@ -1,5 +1,6 @@
 import unittest
-from qaamus.view import View
+from qaamus.view import View, TemplateParser
+from qaamus.utils import default_template
 from collections import namedtuple
 
 
@@ -40,19 +41,19 @@ class ViewTestCase(unittest.TestCase):
         self.assertEqual(rendered, "No object found.")
 
     def test_empty_object(self):
-        view = View("qaamus.default_template")
+        view = View(default_template)
         rendered = view.render()
         self.assertEqual(rendered, "No object found.")
 
     def test_only_instruction_is_not_none(self):
-        view = View("qaamus.default_template")
+        view = View(default_template)
         rendered = view.render(SampleObject, "Angka")
         self.assertEqual(rendered,
                          "###\n#Instruksi Layanan Angka\n###"
                          "\n\nIni adalah instruksi")
 
     def test_query_ara_footer_is_not_none(self):
-        view = View("qaamus.default_template")
+        view = View(default_template)
         rendered = view.render(SampleObjectUtama)
         expected = ("###\n"
                     "#Arti dari coba\n"
@@ -62,7 +63,8 @@ class ViewTestCase(unittest.TestCase):
         self.assertEqual(rendered, expected)
 
     def test_query_ara_footer_with_berhubungan_is_not_none(self):
-        view = View("qaamus.default_template")
+        view = View(default_template)
+
         rendered = view.render(SampleObjectIdAr)
         expected = ("###\n"
                     "#Arti dari coba\n"
@@ -77,6 +79,28 @@ class ViewTestCase(unittest.TestCase):
                     "c : d")
         self.assertEqual(rendered, expected)
 
+
+class TemplateParserTestCase(unittest.TestCase):
+    sample_text = """####first####
+this first
+this first val
+this first val val
+####second####
+this second val
+this second val
+this seeeeeecond val"""
+
+    def splitting_text(self):
+        return self.sample_text.split("\n")
+
+    def test_get_keys_and_pos(self):
+        parser = TemplateParser(self.splitting_text())
+        self.assertEqual(parser.keys(), [('first', 0), ('second', 4)])
+
+    def test_get_first_val(self):
+        parser = TemplateParser(self.splitting_text())
+        expected = "this first\nthis first val\nthis first val val"
+        self.assertEqual(parser.result()['first'], expected)
 
 if __name__ == "__main__":
     unittest.main()
