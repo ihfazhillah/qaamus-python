@@ -2,13 +2,14 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
-
+#: exceptions
 class LayananValueError(ValueError):
     def __init__(self, message=None):
         super(LayananValueError, self).__init__(message)
         self.message = message
 
 
+#: dirs
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
