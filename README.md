@@ -20,12 +20,14 @@ Di aplikasi ini, ada 4 perintah yang bisa anda berikan:
 * version
 
 #### `idar`
-Adapun `idar`, maka digunakan untuk terjemah indonesia arab melalui alamat [qaamus.com/...]()
+Adapun `idar`, maka digunakan untuk terjemah indonesia arab melalui alamat [qaamus.com/indonesia-arab.php](http://qaamus.com/indonesia-arab.php)
 ```sh
 qaamus idar [query]
 ```
 
 #### `angka` dan `pegon`
+`angka` = [http://qaamus.com/angka.php](http://qaamus.com/angka.php)
+`pegon` = [http://qaamus.com/nama.php](http://qaamus.com/nama.php)
 Kedua perintah ini identik, memiliki dua optional sub perintah.
 ```sh
 qaamus angka [-i] [--instruksi] [QUERY]
