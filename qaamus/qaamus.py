@@ -12,6 +12,12 @@ class Qaamus:
             * Indonesia Arab
             * Angka
             * Terjemah nama
+        Adapun *layanan* yang ada di qaamus-python ini adalah:
+            * idar
+            * angka
+            * pegon
+            * angka_instruksi
+            * pegon_instruksi
         Sedangkan *query* adalah query pencarian anda"""
         if layanan in ['idar', 'angka', 'pegon']:
             url_layanan = layanan

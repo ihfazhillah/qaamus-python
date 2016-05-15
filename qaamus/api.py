@@ -1,4 +1,4 @@
-from qaamus import Qaamus
+from .qaamus import Qaamus
 
 
 def idar(query):

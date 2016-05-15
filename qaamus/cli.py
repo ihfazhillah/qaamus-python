@@ -1,7 +1,7 @@
 import sys
 import argparse
 from .__init__ import __version__
-from qaamus import api
+from . import api
 
 
 version = "Versi Qaamus-python: {}".format(__version__)

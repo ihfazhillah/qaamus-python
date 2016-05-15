@@ -1,5 +1,5 @@
-from qaamus.router import QaamusRouter
-from qaamus import parsers, view
+from .router import QaamusRouter
+from . import parsers, view
 
 
 router = QaamusRouter()
