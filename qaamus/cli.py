@@ -1,7 +1,7 @@
 import sys
 import argparse
-import api
-from __init__ import __version__
+from .__init__ import __version__
+from qaamus import api
 
 
 version = "Versi Qaamus-python: {}".format(__version__)
@@ -84,7 +84,7 @@ class PegonArgParser(QaamusArgParser):
         return True
 
 
-if __name__ == "__main__":
+def main():
     args = sys.argv
     if len(args) > 1:
         del args[0]
