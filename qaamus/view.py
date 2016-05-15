@@ -1,4 +1,5 @@
 import re
+from collections import namedtuple
 from qaamus.utils import default_template
 
 
@@ -40,7 +41,7 @@ class TemplateParser(object):
                     if index > i_key:
                         values.append(text.strip())
             result[key] = "\n".join(values)
-        return result
+        return namedtuple("Template", result.keys())(**result)
 
 
 class View(object):
@@ -88,21 +89,21 @@ class View(object):
                 return self.utama_berhubungan_rendered(utama, berhubungan)
 
     def instruksi_rendered(self, instruksi, layanan=""):
-        return self.template['INSTRUKSI_TEMPLATE'].format(instruksi=instruksi,
-                                                          layanan=layanan)
+        return self.template.INSTRUKSI_TEMPLATE.format(instruksi=instruksi,
+                                                       layanan=layanan)
 
     def utama_rendered(self, utama):
-        return self.template['UTAMA_TEMPLATE'].format(
+        return self.template.UTAMA_TEMPLATE.format(
             query=utama.query,
             ara=utama.ara,
             footer=utama.footer)
 
     def utama_berhubungan_rendered(self, utama, berhubungan):
-        berhub_header = self.template['BERHUBUNGAN_HEADER_TEMPLATE'].format(
+        berhub_header = self.template.BERHUBUNGAN_HEADER_TEMPLATE.format(
             query=utama.query)
 
         berhub_body = "\n".join(
-            [self.template['BERHUBUNGAN_BODY_TEMPLATE'].format(
+            [self.template.BERHUBUNGAN_BODY_TEMPLATE.format(
                 ind=x[0], ara=x[1]) for x in berhubungan])
 
         return "\n".join([self.utama_rendered(utama),
