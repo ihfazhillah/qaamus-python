@@ -78,29 +78,5 @@ class ViewTestCase(unittest.TestCase):
                     "a : b\n"
                     "c : d")
         self.assertEqual(rendered, expected)
-
-
-class TemplateParserTestCase(unittest.TestCase):
-    sample_text = """####first####
-this first
-this first val
-this first val val
-####second####
-this second val
-this second val
-this seeeeeecond val"""
-
-    def splitting_text(self):
-        return self.sample_text.split("\n")
-
-    def test_get_keys_and_pos(self):
-        parser = TemplateParser(self.splitting_text())
-        self.assertEqual(parser.keys(), [('first', 0), ('second', 4)])
-
-    def test_get_first_val(self):
-        parser = TemplateParser(self.splitting_text())
-        expected = "this first\nthis first val\nthis first val val"
-        self.assertEqual(parser.result()['first'], expected)
-
 if __name__ == "__main__":
     unittest.main()
