@@ -6,11 +6,18 @@ class TemplateParser(object):
     def __init__(self, multiple_line_text):
         self.multiple_line_text = multiple_line_text
 
-    def keys(self):
-        """Handle parse keys from multiple lines text."""
+    def keys(self, var_re=None):
+        """Handle parse keys from multiple lines text.
+
+        optional: var_re
+        kalau tidak di beri, maka secara default akan mencari text
+        yang berada ditengah #### ####. Dengan karakter yang diijinkan
+        huruf besar, kecil, angka dan underscore."""
+
+        var_re = var_re or re.compile(r"^####([a-zA-Z0-9_]+)####$")
         keys = list()
         for index, text in enumerate(self.multiple_line_text):
-            match = re.match(r"^####([a-zA-Z0-9_]+)####$", text)
+            match = re.match(var_re, text)
             if match:
                 keys.append((match.groups()[0], index))
         return keys
@@ -38,8 +45,8 @@ class TemplateParser(object):
 
 class View(object):
     """Handle template with object data given."""
-    def __init__(self, template_=default_template):
-        self.t = template_
+    def __init__(self, template_file=default_template):
+        self.t = template_file
 
     @property
     def template(self):
