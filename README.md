@@ -3,7 +3,7 @@
 
 Sebuah commandline untuk terjemah kata indonesian-arabic, melalui web [qaamus.com](http://qaamus.com).
 
-[!][](screenshot/utama.png)
+![](screenshot/utama.png)
 
 ## Instalasi
 
@@ -45,6 +45,7 @@ DOKUMENTASI MENYUSUL
 ## Tips
 * Untuk RTL yang lebih optimal, disarankan agar anda menginstall mlterm 
   * Debian: `sudo apt-get install mlterm`
+
 ## Meta
 Muhammad Ihfazhillah -[mading_bengkelku](http://www.facebook.com/madingbengkelku)- [mihfazhillah@gmail.com](mihfazhillah@gmail.com)
 
