@@ -2,6 +2,7 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
+
 #: exceptions
 class LayananValueError(ValueError):
     def __init__(self, message=None):
@@ -25,11 +26,6 @@ def soupping(file):
 
 def get_abs_path(path):
     return os.path.join(BASE_DIR, path)
-
-
-idar_soup = soupping(get_abs_path("html/rumah+sakit"))
-angka_soup = soupping(get_abs_path("html/angka123"))
-pegon_soup = soupping(get_abs_path("html/pegon_suratman"))
 
 default_template = get_abs_path("qaamus/default_template")
 
