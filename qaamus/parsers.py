@@ -1,3 +1,5 @@
+import re
+from collections import namedtuple
 from qaamus.out import Result
 
 
@@ -85,3 +87,44 @@ class AngkaParser(BaseParser, InstructionParserMixin):
 
 class PegonParser(BaseParser, InstructionParserMixin):
     """Handle terjemah pegon page."""
+
+
+class TemplateParser(object):
+    def __init__(self, multiple_line_text):
+        self.multiple_line_text = multiple_line_text
+
+    def keys(self, var_re=None):
+        """Handle parse keys from multiple lines text.
+
+        optional: var_re
+        kalau tidak di beri, maka secara default akan mencari text
+        yang berada ditengah #### ####. Dengan karakter yang diijinkan
+        huruf besar, kecil, angka dan underscore."""
+
+        var_re = var_re or re.compile(r"^####([a-zA-Z0-9_]+)####$")
+        keys = list()
+        for index, text in enumerate(self.multiple_line_text):
+            match = re.match(var_re, text)
+            if match:
+                keys.append((match.groups()[0], index))
+        return keys
+
+    def result(self):
+        """Handle parse values from keys given and return it into
+        key-val pair."""
+        keys = self.keys()
+        result = dict()
+        #: looping through whole lists of string for each key
+        for idx, key in enumerate(keys):
+            key, i_key = key
+            values = list()
+            for index, text in enumerate(self.multiple_line_text):
+                try:
+                    #: if text between this key and after : value
+                    if keys[idx + 1][1] > index > i_key:
+                        values.append(text.strip())
+                except IndexError:
+                    if index > i_key:
+                        values.append(text.strip())
+            result[key] = "\n".join(values)
+        return namedtuple("Template", result.keys())(**result)
