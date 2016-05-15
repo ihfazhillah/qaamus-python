@@ -3,7 +3,7 @@
 
 Sebuah commandline untuk terjemah kata indonesian-arabic, melalui web [qaamus.com](http://qaamus.com).
 
-![](screenshot/utama.png)
+![](screenshot/qaamus1.png)
 
 ## Instalasi
 
