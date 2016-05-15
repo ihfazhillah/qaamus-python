@@ -27,6 +27,7 @@ qaamus idar [query]
 
 #### `angka` dan `pegon`
 `angka` = [http://qaamus.com/angka.php](http://qaamus.com/angka.php)
+
 `pegon` = [http://qaamus.com/nama.php](http://qaamus.com/nama.php)
 Kedua perintah ini identik, memiliki dua optional sub perintah.
 ```sh
@@ -37,7 +38,31 @@ qaamus pegon [-i] [--instruksi] [QUERY]
 ```
 
 ### Sebagai Modul
-DOKUMENTASI MENYUSUL
+* Untuk terjemah indo-arab gunakan `qaamus.idar("query_kamu")`
+* Untuk angka gunakan `qaamus.angka("angka_kamu")`
+* Untuk pegon gunakan `qaamus.pegon("nama_kamu")`
+* Adapun instruksi `qaamus.pegon_instruksi()` atau `qaamus.angka_instruksi()`
+
+Contoh script sederhana:
+```python
+import qaamus
+
+list_kata = ['keyboard', 'monitor', 'gelas']
+list_nama = ['surabaya', 'suratman', 'bekasi']
+list_angka = ['123', '3333', '5567']
+
+for kata in list_kata:
+    idar = qaamus.idar(kata)
+    print(idar)
+
+for nama in list_nama:
+    nama = qaamus.pegon(nama)
+    print(nama)
+
+for angka in list_angka:
+    angka = qaamus.angka(angka)
+    print(angka)
+```
 
 ## Riwayat Rilis
 * 2.0 
@@ -49,6 +74,6 @@ DOKUMENTASI MENYUSUL
   * Debian: `sudo apt-get install mlterm`
 
 ## Meta
-Muhammad Ihfazhillah -[mading_bengkelku](http://www.facebook.com/madingbengkelku)- [mihfazhillah@gmail.com](mihfazhillah@gmail.com)
+Muhammad Ihfazhillah -[madingbengkelku](http://www.facebook.com/madingbengkelku)- mihfazhillah@gmail.com
 
 [@ihfazhillah](http://github.com/ihfazhillah)
