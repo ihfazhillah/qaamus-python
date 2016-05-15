@@ -14,4 +14,6 @@ setup(name='qaamus',
       packages=['qaamus'],
       entry_points={"console_scripts": ["qaamus = qaamus.cli:main"]},
       keywords=['qaamus', 'terjemah', 'kamus', 'indonesia arab'],
+      install_requires=['requests', 'bs4'],
+      include_package_data=True,
       zip_safe=False)
