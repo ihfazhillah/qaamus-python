@@ -1,6 +1,16 @@
+# -*- coding: utf-8 -*-
 import re
+import sys
 from collections import namedtuple
-from qaamus.out import Result
+from .out import Result
+
+
+if sys.version < '3':
+    def u(x):
+        return x.encode('utf-8')
+else:
+    def u(x):
+        return x
 
 
 class BaseParser(object):
@@ -11,20 +21,21 @@ class BaseParser(object):
 
     def _get_ara(self):
         """Return arti utama."""
-        return self.soup.select("center > .lateef2")[0].text.strip()
+        return u(self.soup.select("center > .lateef2")[0].text.strip(
+        ))
 
     def _get_query(self):
         """Return kata yang dicari."""
         css_select = [".panel-heading > h3 > .label",
                       ".panel-heading > h3 > em"]
         soup = (self.soup.select(x) for x in css_select if self.soup.select(x))
-        result = next(soup)[0].text
+        result = u(next(soup)[0].text)
         return result
 
     def _get_footer(self):
         """Return footer pencarian."""
         try:
-            return self.soup.select(".panel-footer")[0].text
+            return u(self.soup.select(".panel-footer")[0].text)
         except IndexError:
             return ''
 
@@ -49,7 +60,7 @@ class IndAraParser(BaseParser):
         self.soup = soup or self.soup
 
         ind = [x.text for x in self.soup.select("td > a")]
-        ara = [x.text for x in self.soup.select("td.lateef")]
+        ara = [u(x.text) for x in self.soup.select("td.lateef")]
         return Result(berhubungan=zip(ind, ara))
 
     def get_next_page_url(self):

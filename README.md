@@ -1,6 +1,8 @@
 # Qaamus
 > Commandline untuk terjemah indo-arab
 
+> Tested at python2.7 and python3.5
+
 Sebuah commandline untuk terjemah kata indonesian-arabic, melalui web [qaamus.com](http://qaamus.com).
 
 ![](screenshot/qaamus1.gif)
