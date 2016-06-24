@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 import re
 from collections import namedtuple
-from qaamus.out import Result
+from .out import Result
 
 
 class BaseParser(object):
