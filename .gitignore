@@ -7,3 +7,4 @@ qaamus/__pycache__/
 *.swp
 *.pyc
 .rope*
+.tox
