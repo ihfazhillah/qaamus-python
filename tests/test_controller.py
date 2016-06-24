@@ -1,5 +1,5 @@
 import unittest
-from qaamus.utils import soupping
+from .utils import soupping
 from qaamus.controller import (idar_controller,
                                angka_controller,
                                pegon_controller,
