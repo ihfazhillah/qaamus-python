@@ -1,4 +1,4 @@
-from qaamus.utils import default_template
+from .utils import default_template
 from .parsers import TemplateParser
 
 
