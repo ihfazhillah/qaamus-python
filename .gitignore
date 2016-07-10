@@ -8,3 +8,4 @@ qaamus/__pycache__/
 *.pyc
 .rope*
 .tox
+qaamus.egg*/*
