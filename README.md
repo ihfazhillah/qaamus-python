@@ -66,16 +66,25 @@ for angka in list_angka:
     print(angka)
 ```
 
+## Testing
+Untuk keperluan testing, maka anda butuh untuk menginstall `tox` dahulu dengan mengetikkan perintah `pip install tox`.
+
+Kemudian, jalankan `tox` dan tunggu sampai selesai. Ini akan menge-test qaamus untuk dipakai di python2.7 dan python3.5. *Feel free* untuk membuat kompabilitas untuk versi python yang lain.
+
+*Ups*, kalau anda perhatikan, akan ada pesan error yang anda dapatkan yang memberitahukan bahwa assertion tidak sama. Maka, jalankan script `fix_next_links_url.py` yang berada dalam folder `html`. **Gunakan python3 untuk menjalankan file ini**
+
 ## Riwayat Rilis
-* 2.0 
+* 2.0.1
+   * Menghilangkan warning dari BeautifulSoup
+* 2.0
    * Qaamus dengan wajah baru
 * 1.0
 
 ## Tips
-* Untuk RTL yang lebih optimal, disarankan agar anda menginstall mlterm 
+* Untuk RTL yang lebih optimal, disarankan agar anda menginstall mlterm
   * Debian: `sudo apt-get install mlterm`
 
 ## Meta
-Muhammad Ihfazhillah -[madingbengkelku](http://www.facebook.com/madingbengkelku)- mihfazhillah@gmail.com
+Muhammad Ihfazhillah -[madingbengkelku](http://www.facebook.com/madingbengkelku) mihfazhillah@gmail.com
 
 [@ihfazhillah](http://github.com/ihfazhillah)
