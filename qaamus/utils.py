@@ -21,7 +21,7 @@ def soupping(file):
     else:
         with open(file, 'rb') as f:
             file = f.read()
-    return BeautifulSoup(file)
+    return BeautifulSoup(file, 'html.parser')
 
 
 def get_abs_path(path):
